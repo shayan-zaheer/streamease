@@ -26,7 +26,7 @@ function PostList(){
             {loadingState ? <LoadingSpinner/> : (
                 <>
                     {postList.length === 0 && <WelcomeMessage />}
-                    {postList.map(post => <Post post={post} />)}
+                    {postList.map(post => <Post key={post} post={post} />)}
                 </>
             )}
         </>
