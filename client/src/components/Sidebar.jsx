@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Sidebar({selectedTab, setSelectedTab}) {
 
     function handleSelectedTab(event){
@@ -21,20 +23,20 @@ function Sidebar({selectedTab, setSelectedTab}) {
 			<hr />
 			<ul className="nav nav-pills flex-column mb-auto">
 				<li className="nav-item">
-					<a onClick={handleSelectedTab} href="#" className={`nav-link text-white ${selectedTab === "Home" && "active"}`}  aria-current="page">
+					<Link onClick={handleSelectedTab} href="/" className={`nav-link text-white ${selectedTab === "Home" && "active"}`}  aria-current="page">
 						<svg className="bi pe-none me-2" width="16" height="16">
 							<use xlinkHref="#home"></use>
 						</svg>
 						Home
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a onClick={handleSelectedTab} href="#" className={`nav-link text-white ${selectedTab === "Upload Video" && "active"}`}>
+					<Link onClick={handleSelectedTab} to="/create-post" className={`nav-link text-white ${selectedTab === "Upload Video" && "active"}`}>
 						<svg className="bi pe-none me-2" width="16" height="16">
 							<use xlinkHref="#table"></use>
 						</svg>
 						Upload Video
-					</a>
+					</Link>
 				</li>
 				
 			</ul>

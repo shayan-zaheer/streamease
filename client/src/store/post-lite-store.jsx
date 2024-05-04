@@ -11,7 +11,7 @@ export const PostListContext = createContext({
 function PostListReducer(currentPostList, action){
     let newPostList = currentPostList;
     if(action.type === "NEW_POST"){
-        newPostList = [...currentPostList, {id: action.payload.id, title: action.payload.title, video: action.payload.video, tags: action.payload.tags, reactions: action.payload.reactions, videoName: action.payload.videoName}];
+        newPostList = [...currentPostList, {id: action.payload.id, title: action.payload.title, link: action.payload.link}];
     }
     else if(action.type === "DELETE_POST"){
         newPostList = currentPostList.filter(post => post.title !== action.payload.title);
@@ -25,11 +25,11 @@ function PostListReducer(currentPostList, action){
 const PostListProvider = ({children}) => {
     const [postList, dispatchPostList] = useReducer(PostListReducer, []);
 
-    const addPost = ({id, title, video, tags, reactions, videoName}) => {
+    const addPost = ({id, title, link}) => {
         const newAction = {
             type: "NEW_POST",
             payload: {
-                id, title, video, tags, reactions, videoName
+                id, title, link
             }
         }
         dispatchPostList(newAction);

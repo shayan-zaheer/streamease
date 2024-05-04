@@ -1,24 +1,25 @@
 import {PostListContext} from "../store/post-lite-store";
 import Post from "./Post";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import WelcomeMessage from "./WelcomeMessage";
-import { useEffect } from "react";
-import { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import axios from "axios";
 
 function PostList(){
     const {postList, addPosts} = useContext(PostListContext)
     const [loadingState, setLoadingState] = useState(false);
 
-    // useEffect(()=>{
-    //     setLoadingState(true);
-    //     fetch('https://dummyjson.com/posts')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         addPosts(data.posts);
-    //         setLoadingState(false);
-    //     });
-    // }, []);
+    const fetchData = async () => {
+        setLoadingState(false);
+        const response = await axios.get("http://localhost:8000/videos");
+        const data = response.data;
+        addPosts(data.videos);
+        setLoadingState(false);
+    }   
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -28,9 +29,8 @@ function PostList(){
                     {postList.map(post => <Post post={post} />)}
                 </>
             )}
-            
         </>
-    )
-}
+    );
+};
 
 export default PostList;
