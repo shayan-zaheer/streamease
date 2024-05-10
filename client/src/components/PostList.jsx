@@ -10,12 +10,13 @@ function PostList(){
     const [loadingState, setLoadingState] = useState(false);
 
     const fetchData = async () => {
-        setLoadingState(false);
+        setLoadingState(true);
         const response = await axios.get("http://localhost:8000/videos");
         const data = response.data;
+        console.log(data);
         addPosts(data.videos);
         setLoadingState(false);
-    }   
+    }
 
     useEffect(() => {
         fetchData();

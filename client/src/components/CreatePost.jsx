@@ -7,26 +7,30 @@ function CreatePost() {
     const postID = useRef("");
     const postTitle = useRef("");
     const postLink = useRef("");
+    const postThumb = useRef("");
 
-    async function handleForm(e) {
+    async function handleForm(e){
         e.preventDefault();
 		const id = postID.current.value;
 		const title = postTitle.current.value;
 		const link = postLink.current.value;
+        const thumbnail = postThumb.current.value;
         console.log(id, title, link);
         try {
-            const response = await axios.post("http://localhost:8000/videos/", {id, title, link}); 
-            if (response.status === 201) {
+            const response = await axios.post("http://localhost:8000/videos/", {id, title, link, thumbnail}); 
+            if(response.status === 201){
                 const data = response.data;
-                addPost({ id, title, link });
+                addPost({ id, title, link, thumbnail });
                 postID.current.value = "";
                 postTitle.current.value = "";
                 postLink.current.value = "";
-                console.log(data);  
-           } else {
+                postThumb.current.value = "";
+           } 
+           else{
                 console.error(`Failed to upload post (${response.status} ${response.statusText})`);
             }
-        } catch (error) {
+        } 
+        catch(error){
             console.error("Error uploading post:", error);
         }
     }
@@ -67,6 +71,18 @@ function CreatePost() {
 					id="link"
                     name="link"
                     ref={postLink}
+				/>
+			</div>
+            <div className="mb-3">
+				<label htmlFor="thumb" className="form-label">
+					Thumbnail
+				</label>
+				<input
+					type="text"
+					className="form-control"
+					id="thumb"
+                    name="thumb"
+                    ref={postThumb}
 				/>
 			</div>
 			<button type="submit" className="btn btn-primary">

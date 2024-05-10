@@ -1,9 +1,9 @@
 const Video = require("../models/video");
 
 exports.createMovie = async (request, response) => {
-	const { id, title, link } = request.body;
+	const { id, title, link, thumbnail } = request.body;
 	try{
-		await Video.create({ id, title, link });
+		await Video.create({ id, title, link, thumbnail });
 		response.status(201).json({
             status: "success",
         })
