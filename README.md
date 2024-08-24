@@ -13,6 +13,6 @@ StreamEase is a movie streaming platform where users can create and manage their
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: React
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
