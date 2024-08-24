@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 import Movie from "./Movie";
 
 function PopularMovies(){
-    const movies = useSelector(store => store.movie);
+    const {popularMovies} = useSelector(store => store.movies);
+
 	return (
 		<section className="popular container" id="popular">
 			<div className="heading">
@@ -27,7 +28,7 @@ function PopularMovies(){
 				modules={[Navigation]}
 				className="popular-content"
 			>
-				{movies.map((movie) => (
+				{popularMovies.map((movie) => (
 					<SwiperSlide key={movie.id}>
 						<Movie key={movie.id} movie={movie} />
 					</SwiperSlide>

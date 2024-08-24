@@ -6,9 +6,9 @@ import "./App.css";
 import {Provider} from "react-redux";
 import store from './store/index.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import PopularMovies from './components/PopularMovies.jsx';
-import Favorites from './components/Favorites.jsx';
-
+import Favorites from './pages/Favorites.jsx';
+import Profile from './pages/Profile.jsx';
+import HomePage from './pages/HomePage.jsx';
 
 const router = createBrowserRouter([
     {
@@ -16,12 +16,16 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: "/",
-                element: <PopularMovies />
+                path: "/home-page",
+                element: <HomePage />
             },
             {
                 path: "/favorites",
                 element: <Favorites />
+            },
+            {
+                path: "/profile",
+                element: <Profile />
             }
         ]
     }

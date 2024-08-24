@@ -1905,3 +1905,7 @@ footer a#linkedin-link:hover {
         grid-template-columns: 1fr;
     }
 }
+
+.spinner{
+    margin: 200px 0;
+}

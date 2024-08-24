@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faFire, faCompass, faTv, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -22,24 +24,30 @@ function Header() {
 				</Link>
 
 				<div className="navbar">
-					<Link to="/" className="nav-link nav-active">
-						<i className="bx bx-home"></i>
+					<Link to="/home-page" className="nav-link">
+						<FontAwesomeIcon icon={faHome} className="bx bx-home" />
 						<span className="nav-link-title">Home</span>
 					</Link>
-					<Link to="/" className="nav-link">
-						<i className="bx bxs-hot"></i>
+					<Link to="/#popular" className="nav-link">
+						<FontAwesomeIcon icon={faFire} className="bx bxs-hot" />
 						<span className="nav-link-title">Trending</span>
 					</Link>
-					<Link to="/" className="nav-link">
-						<i className="bx bx-compass"></i>
+					<Link to="/#movies" className="nav-link">
+						<FontAwesomeIcon
+							icon={faCompass}
+							className="bx bx-compass"
+						/>
 						<span className="nav-link-title">Explore</span>
 					</Link>
 					<Link to="/" className="nav-link">
-						<i className="bx bx-tv"></i>
+						<FontAwesomeIcon icon={faTv} className="bx bx-tv" />
 						<span className="nav-link-title">Movies</span>
 					</Link>
-					<Link to="/" className="nav-link">
-						<i className="bx bx-heart"></i>
+					<Link to="/favorite" className="nav-link">
+						<FontAwesomeIcon
+							icon={faHeart}
+							className="bx bx-heart"
+						/>
 						<span className="nav-link-title">Favorite</span>
 					</Link>
 				</div>
