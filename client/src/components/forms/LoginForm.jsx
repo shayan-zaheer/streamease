@@ -19,7 +19,7 @@ function LoginForm({setActive, showPass, setShowPass}) {
 					<label htmlFor="email">Email</label>
 				</div>
 				<div className="input-box">
-					<span className="icon" onClick={() => setShowPass(!showPass)}>
+					<span style={{cursor: "pointer"}} className="icon" onClick={() => setShowPass(!showPass)}>
                         {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
 					<input id="pInput" name="pass" type={showPass ? "password" : "text"} required />

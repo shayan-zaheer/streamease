@@ -1,7 +1,9 @@
 import { IonIcon } from '@ionic/react';
-import { lockClosed, mail } from 'ionicons/icons';
+import { mail, eye, eyeOff } from 'ionicons/icons';
+import { useState } from 'react';
 
-function OTPForm({setActive}) {
+function OTPForm({setActive, showPass, setShowPass}) {
+    const [confirmPass, setConfirmPass] = useState(false);
 	return (
 		<div className="form-box otp-form">
 			<h2>Enter OTP</h2>  
@@ -19,25 +21,25 @@ function OTPForm({setActive}) {
 					<label htmlFor="otp">OTP</label>
 				</div>
 				<div className="input-box">
-					<span className="icon">
-						<IonIcon icon={lockClosed} />
+                <span style={{cursor: "pointer"}} className="icon" onClick={() => setShowPass(!showPass)}>
+                        {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
 					<input
 						id="newPasswordInput"
 						name="newPassword"
-						type="password"
+						type={showPass ? "password" : "text"}
 						required
 					/>
 					<label htmlFor="newPassword">New Password</label>
 				</div>
 				<div className="input-box">
-					<span className="icon">
-                        <IonIcon icon={lockClosed} />
+                <span style={{cursor: "pointer"}} className="icon" onClick={() => setConfirmPass(!confirmPass)}>
+                        {confirmPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
 					<input
 						id="confirmPasswordInput"
 						name="confirmPassword"
-						type="password"
+						type={confirmPass ? "password" : "text"}
 						required
 					/>
 					<label htmlFor="confirmPassword">Confirm Password</label>
