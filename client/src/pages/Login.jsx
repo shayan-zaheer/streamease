@@ -34,7 +34,7 @@ function Login() {
 						</span>
 						
 						{active === "login" && <LoginForm setActive={setActive} /> }
-						{active === "registration" && <RegisterForm setActive={setActive} />}
+						{active === "register" && <RegisterForm setActive={setActive} />}
 						{active === "forget" && <ForgetForm setActive={setActive} />}
 						{active === "otp" && <OTPForm setActive={setActive} />}
 
