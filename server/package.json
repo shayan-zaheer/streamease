@@ -68,6 +68,8 @@
     "qs": "^6.11.0",
     "range-parser": "^1.2.1",
     "raw-body": "^2.5.2",
+    "react-modal-video": "^2.0.2",
+    "react-toastify": "^10.0.5",
     "safe-buffer": "^5.2.1",
     "safer-buffer": "^2.1.2",
     "send": "^0.18.0",

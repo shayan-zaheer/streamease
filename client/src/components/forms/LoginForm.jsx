@@ -1,7 +1,7 @@
 import { IonIcon } from '@ionic/react';
-import { lockClosed, mail } from 'ionicons/icons';
+import { eye, eyeOff, mail } from 'ionicons/icons';
 
-function LoginForm({setActive}) {
+function LoginForm({setActive, showPass, setShowPass}) {
 	return (
 		<div className="form-box login">
 			<h2>Login</h2>
@@ -19,10 +19,10 @@ function LoginForm({setActive}) {
 					<label htmlFor="email">Email</label>
 				</div>
 				<div className="input-box">
-					<span className="icon">
-                        <IonIcon icon={lockClosed} />
+					<span className="icon" onClick={() => setShowPass(!showPass)}>
+                        {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
-					<input id="pInput" name="pass" type="password" required />
+					<input id="pInput" name="pass" type={showPass ? "password" : "text"} required />
 					<label htmlFor="pass">Password</label>
 				</div>
 				<div className="remember-forget">
@@ -30,7 +30,7 @@ function LoginForm({setActive}) {
 						<input type="checkbox" />
 						Remember me
 					</label>
-					<a onClick={() => setActive("forget")} id="forgetPasswordLink">
+					<a onClick={() => setActive("forget")} className="link">
 						Forget Password?
 					</a>
 				</div>
@@ -40,7 +40,7 @@ function LoginForm({setActive}) {
 				<div className="login-register">
 					<p>
 						Don't have an account?
-						<a onClick={() => setActive("register")} className="register-link">
+						<a onClick={() => setActive("register")} className="link">
 							Register
 						</a>
 					</p>

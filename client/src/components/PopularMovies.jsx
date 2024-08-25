@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
-import Movie from "./Movie";
+import MovieBox from "./MovieBox";
 
 function PopularMovies(){
     const {popularMovies} = useSelector(store => store.movies);
@@ -29,7 +29,7 @@ function PopularMovies(){
 			>
 				{popularMovies.map((movie) => (
 					<SwiperSlide key={movie.id}>
-						<Movie key={movie.id} movie={movie} />
+						<MovieBox key={movie.id} movie={movie} />
 					</SwiperSlide>
 				))}
 			</Swiper>

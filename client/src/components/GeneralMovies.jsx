@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Movie from "./Movie";
+import MovieBox from "./MovieBox";
 
 function GeneralMovies(){
     const {generalMovies} = useSelector(store => store.movies);
@@ -12,7 +12,7 @@ function GeneralMovies(){
 			</div>
 			<div className="movies-content" id="all-movies">
                 {generalMovies.map(movie => {
-                    return <Movie key={movie.id} movie={movie} />
+                    return <MovieBox key={movie.id} movie={movie} />
                 })}
 			</div>
 		</section>

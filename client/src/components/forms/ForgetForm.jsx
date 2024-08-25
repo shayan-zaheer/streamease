@@ -28,14 +28,14 @@ function ForgetForm({setActive}) {
 				</button>
 				<div className="login-register">
 					<p>
-						Remembered?
-						<a onClick={() => setActive("login")} className="login-link">
+						Remembered? {" "}
+						<a onClick={() => setActive("login")} className="link">
 							Login
 						</a>
 					</p>
 					<p>
-						Received OTP?
-						<a onClick={() => setActive("otp")} className="continue-link">
+						Received OTP? {" "}
+						<a onClick={() => setActive("otp")} className="link">
 							Continue
 						</a>
 					</p>

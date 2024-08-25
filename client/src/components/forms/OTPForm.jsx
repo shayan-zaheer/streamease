@@ -4,7 +4,7 @@ import { lockClosed, mail } from 'ionicons/icons';
 function OTPForm({setActive}) {
 	return (
 		<div className="form-box otp-form">
-			<h2>Enter OTP</h2>
+			<h2>Enter OTP</h2>  
 			<form
 				action="#"
 				id="otpForm"
@@ -48,7 +48,7 @@ function OTPForm({setActive}) {
 				<div className="login-register">
 					<p>
 						Remembered?{" "}
-						<a onClick={() => setActive("login")} className="login-link">
+						<a onClick={() => setActive("login")} className="link">
 							Login
 						</a>
 					</p>

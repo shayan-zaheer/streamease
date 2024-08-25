@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 
 function Login() {
     const [active, setActive] = useState("");
+    const [showPass, setShowPass] = useState(false);
 
 	return (
 		<>
@@ -29,10 +30,10 @@ function Login() {
                             <IonIcon icon={closeOutline} />
 						</span>
 						
-						{active === "login" && <LoginForm setActive={setActive} /> }
-						{active === "register" && <RegisterForm setActive={setActive} />}
+						{active === "login" && <LoginForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} /> }
+						{active === "register" && <RegisterForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} />}
 						{active === "forget" && <ForgetForm setActive={setActive} />}
-						{active === "otp" && <OTPForm setActive={setActive} />}
+						{active === "otp" && <OTPForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} />}
 
 					</div>
 				</div>

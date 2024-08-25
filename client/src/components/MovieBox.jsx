@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-function Movie({ movie }) {
+function MovieBox({ movie }) {
     return (
         <div className="movie-box">
             <img src={movie.v_poster} alt={movie.title} className="movie-box-img" />
@@ -24,4 +24,4 @@ function Movie({ movie }) {
     );
 }
 
-export default Movie;
+export default MovieBox;
