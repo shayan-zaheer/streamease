@@ -35,9 +35,9 @@ function FetchMovies() {
                 dispatch(moviesActions.addPopularMovies(popularMovies.movies));
 
                 dispatch(statusActions.markFetchDone());
-            } catch (error) {
-                console.error("Error fetching movies:", error);
-            } finally {
+            } catch (err) {
+                console.error(err)
+            } finally{
                 dispatch(statusActions.markFetchingFinished());
             }
         };

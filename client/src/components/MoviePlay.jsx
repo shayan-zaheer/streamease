@@ -4,7 +4,6 @@ import { useState } from "react";
 
 function MoviePlay({movie}) {
 	const [isOpen, setIsOpen] = useState(false);
-
 	return (
 		<>
 			<img src={movie.h_poster} alt="" className="play-img" />
