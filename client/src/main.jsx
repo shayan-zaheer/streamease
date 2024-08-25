@@ -10,6 +10,7 @@ import Favorites from './pages/Favorites.jsx';
 import Profile from './pages/Profile.jsx';
 import HomePage from './pages/HomePage.jsx';
 import Login from './pages/Login.jsx';
+import PlayPage from './pages/PlayPage.jsx';
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
                 path: "/profile",
                 element: <Profile />
             },
+            {
+                path: "/play",
+                element: <PlayPage />
+            }
         ]
     },
     {

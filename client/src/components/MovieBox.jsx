@@ -10,7 +10,7 @@ function MovieBox({ movie }) {
                 <h2 className="movie-title">{movie.title}</h2>
                 <span className="movie-type">{movie.genre}</span>
                 <Link
-                    to={`play-page?id=${movie.id}`}
+                    to={`/play?id=${movie.id}`}
                     className="watch-btn play-btn"
                     data-id={movie.id}
                 >

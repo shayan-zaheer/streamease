@@ -28,11 +28,11 @@ function Header() {
 						<FontAwesomeIcon icon={faHome} className="bx bx-home" />
 						<span className="nav-link-title">Home</span>
 					</Link>
-					<Link to="/#popular" className="nav-link">
+					<Link to="#popular" className="nav-link">
 						<FontAwesomeIcon icon={faFire} className="bx bxs-hot" />
 						<span className="nav-link-title">Trending</span>
 					</Link>
-					<Link to="/#movies" className="nav-link">
+					<Link to="#movies" className="nav-link">
 						<FontAwesomeIcon
 							icon={faCompass}
 							className="bx bx-compass"
