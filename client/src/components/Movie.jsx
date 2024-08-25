@@ -14,10 +14,10 @@ function Movie({ movie }) {
                     className="watch-btn play-btn"
                     data-id={movie.id}
                 >
-                    <FontAwesomeIcon size="xs" icon={faArrowRight} className="bx bx-right-arrow" />
+                    <FontAwesomeIcon size="1x" icon={faArrowRight} className="bx bx-right-arrow" />
                 </Link>
                 <a className="watch-btn heart-btn" data-id={movie.id}>
-                    <FontAwesomeIcon size="xs" icon={faHeart} className="bx bxs-heart" style={{ color: "#ffffff" }} />
+                    <FontAwesomeIcon size="1x" icon={faHeart} className="bx bxs-heart" style={{ color: "#ffffff" }} />
                 </a>
             </div>
         </div>

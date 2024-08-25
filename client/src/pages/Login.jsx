@@ -1,21 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import LoginForm from "../components/forms/LoginForm";
+import RegisterForm from "../components/forms/RegisterForm";
+import ForgetForm from "../components/forms/ForgetForm";
+import OTPForm from "../components/forms/OTPForm";
 
 function Login() {
-	const [activeForm, setActiveForm] = useState("");
-	const [backgroundIndex, setBackgroundIndex] = useState(0);
+    const [active, setActive] = useState("");
 
-	const images = [
-		"https://i0.wp.com/interplanetary.tv/wp-content/uploads/2024/02/Alienoid-1-landscape-poster-1.jpg?ssl=1",
-		"https://s0.smartresize.com/wallpaper/156/622/HD-wallpaper-avengers-endgame-all-characters-superheroes-movies.jpg",
-		"https://assets-in.bmscdn.com/discovery-catalog/events/et00040397-psbktzcwam-landscape.jpg",
-	];
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setBackgroundIndex((prevIndex) => (prevIndex + 1) % images.length);
-		}, 2500);
-		return () => clearInterval(interval);
-	}, [images.length]);
+    useEffect(() => {
+        console.log(active);
+    }, [active]);
 
 	return (
 		<>
@@ -24,185 +18,31 @@ function Login() {
 					<a href="login-signup.html" className="logo">
 						Stream<span>Ease</span>
 					</a>
-					<button
-						className="btn btn-red-sm"
-						onClick={() => setActiveForm("login")}
-					>
-						Login
-					</button>
+
+					<button onClick={() => setActive("login")} className="btn btn-red-sm">Login</button>
+
 					<a href="#" className="user">
 						<img alt="" className="user-img" />
 					</a>
 				</div>
 			</header>
-
-			<div
-				className="main"
-				style={{ backgroundImage: `url(${images[backgroundIndex]})` }}
-			>
-				<div className="box">
-					<div className="hero">
-						<span
-							className="icon-close"
-							onClick={() => setActiveForm("none")}
-						>
+			<div className="main">
+				<div className="box active-popup">
+					<div className="hero active">
+						<span className="icon-close">
 							<ion-icon name="close-outline"></ion-icon>
 						</span>
+						
+						{active === "login" && <LoginForm setActive={setActive} /> }
+						{active === "registration" && <RegisterForm setActive={setActive} />}
+						{active === "forget" && <ForgetForm setActive={setActive} />}
+						{active === "otp" && <OTPForm setActive={setActive} />}
 
-						{/* Login Form */}
-						{activeForm === "login" && (
-							<div className="form-box login">
-								<h2>Login</h2>
-								<form action="#" method="POST">
-									<div className="input-box">
-										<span className="icon">
-											<ion-icon name="mail"></ion-icon>
-										</span>
-										<input
-											name="email"
-											type="email"
-											required
-										/>
-										<label>Email</label>
-									</div>
-									<div className="input-box">
-										<span className="icon">
-											<ion-icon name="lock-closed"></ion-icon>
-										</span>
-										<input
-											name="pass"
-											type="password"
-											required
-										/>
-										<label>Password</label>
-									</div>
-									<div className="remember-forget">
-										<label>
-											<input type="checkbox" />
-											Remember me
-										</label>
-										<a
-											href="#"
-											onClick={() =>
-												setActiveForm("forgot-password")
-											}
-										>
-											Forget Password?
-										</a>
-									</div>
-									<button type="submit" className="boto">
-										Login
-									</button>
-									<div className="login-register">
-										<p>
-											Don't have an account?{" "}
-											<a
-												href="#"
-												onClick={() =>
-													setActiveForm("register")
-												}
-											>
-												Register
-											</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						)}
-
-						{/* Register Form */}
-						{activeForm === "register" && (
-							<div className="form-box register">
-								<h2>Registration</h2>
-								<form action="#" method="POST">
-									{/* Registration fields here */}
-									<button type="submit" className="boto">
-										Register
-									</button>
-									<div className="login-register">
-										<p>
-											Already have an account?{" "}
-											<a
-												href="#"
-												onClick={() =>
-													setActiveForm("login")
-												}
-											>
-												Login
-											</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						)}
-
-						{/* Forgot Password Form */}
-						{activeForm === "forgot-password" && (
-							<div className="form-box forgot-password">
-								<h2>Forgot Password</h2>
-								<form action="#" method="POST">
-									{/* Forgot password fields */}
-									<button type="submit" className="boto">
-										Submit
-									</button>
-									<div className="login-register">
-										<p>
-											Remembered?{" "}
-											<a
-												href="#"
-												onClick={() =>
-													setActiveForm("login")
-												}
-											>
-												Login
-											</a>
-										</p>
-										<p>
-											Received OTP?{" "}
-											<a
-												href="#"
-												onClick={() =>
-													setActiveForm("otp")
-												}
-											>
-												Continue
-											</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						)}
-
-						{/* OTP Form */}
-						{activeForm === "otp" && (
-							<div className="form-box otp-form">
-								<h2>Enter OTP</h2>
-								<form action="#" method="POST">
-									{/* OTP fields */}
-									<button type="submit" className="boto">
-										Submit
-									</button>
-									<div className="login-register">
-										<p>
-											Remembered?{" "}
-											<a
-												href="#"
-												onClick={() =>
-													setActiveForm("login")
-												}
-											>
-												Login
-											</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						)}
 					</div>
 				</div>
 			</div>
+			<div className="seperation"></div>
 
-			{/* Sections (additional content) */}
 			<section className="first">
 				<div className="secimg">
 					<img src="images/mobile.png" alt="" />
@@ -215,6 +55,7 @@ function Login() {
 					</span>
 				</div>
 			</section>
+			<div className="seperation"></div>
 
 			<section className="first second">
 				<div>
@@ -226,9 +67,14 @@ function Login() {
 				</div>
 				<div className="secimg">
 					<img src="images/tv.png" alt="" />
-					<video src="videos/video1.mp4" autoPlay loop muted></video>
+					<video src="videos/video1.mp4" autoplay loop muted></video>
 				</div>
 			</section>
+			<div className="seperation"></div>
+
+			<div className="copyright">
+				<p>&#169; WebWar All rights reserved</p>
+			</div>
 		</>
 	);
 }

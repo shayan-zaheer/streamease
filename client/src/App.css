@@ -32,11 +32,6 @@ a{
     text-decoration: none;
 }
 
-body{
-    background: black;
-    color: var(--text-color);
-}
-
 .container{
     max-width: 1220px;
     margin: auto;
@@ -59,7 +54,6 @@ header{
     padding: 20px 0;
 }
 
-/* logo */
 .logo{
     font-size: 1.1rem;
     color: var(--text-color);
@@ -92,6 +86,8 @@ header{
 .main {
     background-image: url(https://i0.wp.com/interplanetary.tv/wp-content/uploads/2024/02/Alienoid-1-landscape-poster-1.jpg?ssl=1);
     height: 100vh;
+    margin: 0;
+    padding: 0;
     object-fit: cover;
     position: relative;
     background-size: max(1000px, 100vw);
@@ -133,13 +129,13 @@ header{
 }
 
 .hero.active .form-box.login{
-    display: none;
+    /* display: none; */    
     transition: none;
     transform: translateX(-600px);
 }
 
 .hero .form-box.register{
-    display: none;
+    /* display: none; */
     position: relative;
     transition: none;
     transform: translateX(600px);
@@ -986,9 +982,9 @@ header{
 }
 
 form{
-    background-color:#2f2f3a;
+    /* background-color:#2f2f3a; */
     padding:30px;
-    height: 72vh;
+    /* height: 72vh; */
     border-radius: 5px;
 }
 
