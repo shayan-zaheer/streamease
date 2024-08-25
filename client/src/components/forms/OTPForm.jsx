@@ -1,3 +1,6 @@
+import { IonIcon } from '@ionic/react';
+import { lockClosed, mail } from 'ionicons/icons';
+
 function OTPForm({setActive}) {
 	return (
 		<div className="form-box otp-form">
@@ -6,18 +9,18 @@ function OTPForm({setActive}) {
 				action="#"
 				id="otpForm"
 				method="POST"
-				enctype="multipart/form-data"
+				encType="multipart/form-data"
 			>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="mail"></ion-icon>
+						<IonIcon icon={mail} />
 					</span>
 					<input id="otpInput" name="otp" type="text" required />
 					<label htmlFor="otp">OTP</label>
 				</div>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="lock-closed"></ion-icon>
+						<IonIcon icon={lockClosed} />
 					</span>
 					<input
 						id="newPasswordInput"
@@ -29,7 +32,7 @@ function OTPForm({setActive}) {
 				</div>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="lock-closed"></ion-icon>
+                        <IonIcon icon={lockClosed} />
 					</span>
 					<input
 						id="confirmPasswordInput"

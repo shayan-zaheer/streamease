@@ -1,3 +1,6 @@
+import { IonIcon } from '@ionic/react';
+import { lockClosed, mail } from 'ionicons/icons';
+
 function LoginForm({setActive}) {
 	return (
 		<div className="form-box login">
@@ -6,18 +9,18 @@ function LoginForm({setActive}) {
 				action="#"
 				id="loginForm"
 				method="POST"
-				enctype="multipart/form-data"
+				encType="multipart/form-data"
 			>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="mail"></ion-icon>
+                        <IonIcon icon={mail} />
 					</span>
 					<input id="eInput" name="email" type="email" required />
 					<label htmlFor="email">Email</label>
 				</div>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="lock-closed"></ion-icon>
+                        <IonIcon icon={lockClosed} />
 					</span>
 					<input id="pInput" name="pass" type="password" required />
 					<label htmlFor="pass">Password</label>

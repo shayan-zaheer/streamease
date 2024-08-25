@@ -85,9 +85,7 @@ header{
 
 .main {
     background-image: url(https://i0.wp.com/interplanetary.tv/wp-content/uploads/2024/02/Alienoid-1-landscape-poster-1.jpg?ssl=1);
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+    height: 100vh;  
     object-fit: cover;
     position: relative;
     background-size: max(1000px, 100vw);
@@ -870,7 +868,7 @@ header{
     color: var(--main-color);
 }
 
-.main {
+.main-profile {
     display: flex;
     width: 85vw;
     height: 90vh;

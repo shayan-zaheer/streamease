@@ -1,3 +1,6 @@
+import { IonIcon } from '@ionic/react';
+import { image, lockClosed, mail, person } from 'ionicons/icons';
+
 function RegisterForm({setActive}) {
 	return (
 		<div className="form-box register">
@@ -6,11 +9,11 @@ function RegisterForm({setActive}) {
 				action="#"
 				id="signupForm"
 				method="POST"
-				enctype="multipart/form-data"
+				encType="multipart/form-data"
 			>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="person"></ion-icon>
+                        <IonIcon icon={person} />
 					</span>
 					<input id="fnameInput" name="fname" type="text" required />
 					<label htmlFor="fname">First Name</label>
@@ -18,7 +21,7 @@ function RegisterForm({setActive}) {
 
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="person"></ion-icon>
+                        <IonIcon icon={person} />
 					</span>
 					<input id="lnameInput" name="lname" type="text" required />
 					<label htmlFor="lname">Last Name</label>
@@ -26,7 +29,7 @@ function RegisterForm({setActive}) {
 
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="person"></ion-icon>
+                        <IonIcon icon={person} />
 					</span>
 					<input
 						id="usernameInput"
@@ -39,7 +42,7 @@ function RegisterForm({setActive}) {
 
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="mail"></ion-icon>
+                        <IonIcon icon={mail} />
 					</span>
 					<input id="emailInput" name="email" type="email" required />
 					<label htmlFor="email">Email</label>
@@ -47,7 +50,7 @@ function RegisterForm({setActive}) {
 
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="lock-closed"></ion-icon>
+                        <IonIcon icon={lockClosed} />
 					</span>
 					<input id="pwInput" name="pass" type="password" required />
 					<label htmlFor="pass">Password</label>
@@ -55,7 +58,7 @@ function RegisterForm({setActive}) {
 
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="image"></ion-icon>
+                        <IonIcon icon={image} />
 					</span>
 					<input
 						id="profileImageInput"

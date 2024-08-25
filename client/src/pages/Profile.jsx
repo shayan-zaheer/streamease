@@ -1,6 +1,6 @@
 function Profile() {
 	return (
-		<div class="main">
+		<div class="main-profile">
 			<div class="sidebar">
 				<div class="profile-pic">
 					<img src="path/to/profile.jpg" alt="Profile Picture" />

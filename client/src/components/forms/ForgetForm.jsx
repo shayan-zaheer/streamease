@@ -1,3 +1,6 @@
+import { IonIcon } from '@ionic/react';
+import { mail } from 'ionicons/icons';
+
 function ForgetForm({setActive}) {
 	return (
 		<div className="form-box forgot-password">
@@ -6,11 +9,11 @@ function ForgetForm({setActive}) {
 				action="#"
 				id="forgotPasswordForm"
 				method="POST"
-				enctype="multipart/form-data"
+				encType="multipart/form-data"
 			>
 				<div className="input-box">
 					<span className="icon">
-						<ion-icon name="mail"></ion-icon>
+						<IonIcon icon={mail} />
 					</span>
 					<input
 						id="forgotEmailInput"
