@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 
 function Login() {
     const [active, setActive] = useState("");
-    const [showPass, setShowPass] = useState(false);
+    const [showPass, setShowPass] = useState(true);
 
 	return (
 		<>

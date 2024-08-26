@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { statusActions } from "../store/statusSlice";
 import { moviesActions } from "../store/moviesSlice";
 import { useEffect } from "react";
+import axios from "axios";
 
 function FetchMovies() {
     const status = useSelector(store => store.status);
@@ -19,20 +20,13 @@ function FetchMovies() {
             try {
                 dispatch(statusActions.markFetchingStarted());
 
-                const [generalResponse, popularResponse] = await Promise.all([
-                    fetch("http://localhost:8000/movies/general", { signal }),
-                    fetch("http://localhost:8000/movies/popular", { signal })
+                const [generalMovies, popularMovies] = await Promise.all([
+                    axios.get("http://localhost:8000/movies/general", { signal, withCredentials: true}),
+                    axios.get("http://localhost:8000/movies/popular", { signal , withCredentials: true})
                 ]);
 
-                if (!generalResponse.ok || !popularResponse.ok) {
-                    throw new Error('Failed to fetch movies');
-                }
-
-                const generalMovies = await generalResponse.json();
-                const popularMovies = await popularResponse.json();
-
-                dispatch(moviesActions.addGeneralMovies(generalMovies.movies));
-                dispatch(moviesActions.addPopularMovies(popularMovies.movies));
+                dispatch(moviesActions.addGeneralMovies(generalMovies.data.movies));
+                dispatch(moviesActions.addPopularMovies(popularMovies.data.movies));
 
                 dispatch(statusActions.markFetchDone());
             } catch (err) {

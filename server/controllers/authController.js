@@ -129,7 +129,7 @@ exports.login = async (request, response) => {
 exports.checkToken = async (request, response, next) => {
     try {
         const token = request.cookies.token;
-        console.log(request.cookies);
+        console.log("Request cookie:" , request.cookies);
 
         if (!token) {
             return response.status(401).json({
