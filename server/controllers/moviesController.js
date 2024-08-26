@@ -173,6 +173,7 @@ exports.addFavorite = async (request, response) => {
         });
     }
     catch(err){
+        console.error(err);
         response.status(500).json({
             status: "fail",
             message: err.message

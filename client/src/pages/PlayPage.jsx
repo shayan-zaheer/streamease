@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MoviePlay from "../components/MoviePlay";
+import axios from "axios";
 
 function PlayPage() {
 	const [movie, setMovie] = useState("");
@@ -14,11 +15,11 @@ function PlayPage() {
 		const fetchMovie = async () => {
 			if (movieId) {
 				try {
-					const data = await fetch(
+					const data = await axios.get(
 						`http://localhost:8000/movies/${movieId}`,
-						{ signal }
+						{ signal, withCredentials: true }
 					);
-					const response = await data.json();
+					const response = data.data;
 					setMovie(response.movie);
 				} catch (err) {
 					console.error(err);
