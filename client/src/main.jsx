@@ -11,6 +11,7 @@ import Profile from './pages/Profile.jsx';
 import HomePage from './pages/HomePage.jsx';
 import Login from './pages/Login.jsx';
 import PlayPage from './pages/PlayPage.jsx';
+import { loginAction } from './components/forms/LoginForm.jsx';
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,8 @@ const router = createBrowserRouter([
     },
     {
         path: "/login",
-        element: <Login />
+        element: <Login />,
+        action: loginAction
     }
 ])
 

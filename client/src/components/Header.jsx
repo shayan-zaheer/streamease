@@ -1,8 +1,30 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faFire, faCompass, faTv, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 function Header() {
+    const [image, setImage] = useState("");
+    useEffect(() => {
+        async function updateProfile(){
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/users/userdata",
+                    { withCredentials: true }
+                );
+                const userData = response.data.result[0];
+                console.log(userData);
+                if (userData && userData.profile_image_url) {
+                    setImage(userData.profile_image_url);
+                }
+            } catch (err) {
+               console.log(err);
+            }
+        }
+
+        updateProfile();
+    }, [])
+
 	return (
 		<header>
 			<div className="nav container">
@@ -20,7 +42,7 @@ function Header() {
 				</div>
 
 				<Link to="/profile" className="user">
-					<img alt="" className="user-img" />
+					<img src={image} className="user-img" />
 				</Link>
 
 				<div className="navbar">
