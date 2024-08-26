@@ -7,16 +7,11 @@ function Profile() {
     const [page, setPage] = useState("account");
 
 	return (
-        <>
-            <div className="main-profile">
-                <ProfileSidebar page={page} setPage={setPage} />
-                {page === "account" && <Account />}
-                {page === "password" && <ChangePass />}
-			</div>
-
-
-			
-        </>
+        <div className="main-profile">
+            <ProfileSidebar page={page} setPage={setPage} />
+            {page === "account" && <Account />}
+            {page === "password" && <ChangePass />}
+        </div>
 	);
 }
 
