@@ -8,8 +8,8 @@ router.route("/popular").get(authController.checkToken, moviesController.getPopu
 router.route("/general").get(authController.checkToken, moviesController.getAllMovies);
 router.route("/favorites").get(authController.checkToken, moviesController.getFavorites);
 router.route("/moviedata/:movieId").get(authController.checkToken, moviesController.getMovieData);
-router.route("/remove-favorite/:movieId").get(authController.checkToken, moviesController.removeFavorite);
+router.route("/remove-favorite/:movieId").post(authController.checkToken, moviesController.removeFavorite);
 router.route("/:id").get(moviesController.getMovieByID);
-router.route("/add-favorite/:movieId").get(authController.checkToken, moviesController.addFavorite);
+router.route("/add-favorite/:movieId").post(authController.checkToken, moviesController.addFavorite);
 
 module.exports = router;

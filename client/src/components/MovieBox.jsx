@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+
+async function addFavorite(movieId){
+    await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {withCredentials: true});
+}
 
 function MovieBox({ movie }) {
     return (
@@ -16,7 +21,7 @@ function MovieBox({ movie }) {
                 >
                     <FontAwesomeIcon size="1x" icon={faArrowRight} className="bx bx-right-arrow" />
                 </Link>
-                <a className="watch-btn heart-btn" data-id={movie.id}>
+                <a onClick={() => addFavorite(movie.id)} className="watch-btn heart-btn" data-id={movie.id}>
                     <FontAwesomeIcon size="1x" icon={faHeart} className="bx bxs-heart" style={{ color: "#ffffff" }} />
                 </a>
             </div>

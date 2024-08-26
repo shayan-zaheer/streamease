@@ -1,7 +1,19 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+async function logout(navigate) {
+    try {
+        await axios.post("http://localhost:8000/auth/logout", {}, { withCredentials: true });
+        navigate("/login");
+    } catch (error) {
+        console.error("Logout failed", error);
+    }
+}
 
 function ProfileSidebar({ page, setPage }) {
-    const { first_name, last_name, profile_image_url, username } = useSelector(store => store.user);
+    const { first_name, last_name, profile_image_url, username } = useSelector((store) => store.user);
+    const navigate = useNavigate();
 
     return (
         <div className="sidebar">
@@ -13,12 +25,12 @@ function ProfileSidebar({ page, setPage }) {
                 <h3>{username}</h3>
             </div>
             <ul>
-                <li className={page === "account" && "active"}>
+                <li className={page === "account" ? "active" : ""}>
                     <a onClick={() => setPage("account")} id="accountLink">
                         Account
                     </a>
                 </li>
-                <li className={page === "password" && "active"}>
+                <li className={page === "password" ? "active" : ""}>
                     <a onClick={() => setPage("password")} id="passwordLink">
                         Password
                     </a>
@@ -26,7 +38,9 @@ function ProfileSidebar({ page, setPage }) {
             </ul>
             <div className="logout">
                 <i className="bx bx-log-out"></i>
-                <span className="logout-title">Logout</span>
+                <span onClick={() => logout(navigate)} className="logout-title">
+                    Logout
+                </span>
             </div>
         </div>
     );

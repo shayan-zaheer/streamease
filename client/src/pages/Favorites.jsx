@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+
 function Favorites(){
+    useEffect(() => {
+
+    }, []);
+
     return (
         <section className="movies container" id="movies">
 			<div className="heading">
