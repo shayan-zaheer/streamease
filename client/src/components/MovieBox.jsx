@@ -8,10 +8,20 @@ import { ToastContainer, toast } from 'react-toastify';
 async function addFavorite(movieId){
     try{
         const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
-        console.log(result);
+        return result;
     }
     catch(err){
-        console.error(err);
+        return err;
+    }
+}
+
+async function removeFavorite(movieId){
+    try{
+        const result = await axios.post(`http://localhost:8000/movies/remove-favorite/${movieId}`, {}, {withCredentials: true});
+        return result;
+    }
+    catch(err){
+        return err;
     }
 }
 
@@ -23,6 +33,17 @@ function MovieBox({ movie }) {
           position: "bottom-right",
         });
       };
+
+      const handleLikeClick = async () => {
+        if (like) {
+            await removeFavorite(movie.id);
+            showToastMessage(`${movie.title} has been removed from your favorites!`);
+        } else {
+            await addFavorite(movie.id);
+            showToastMessage(`${movie.title} has been added to your favorites!`);
+        }
+        setLike(!like);
+    };
 
     return (
         <div className="movie-box">
@@ -37,11 +58,7 @@ function MovieBox({ movie }) {
                 >
                     <FontAwesomeIcon icon={faPlay} />
                 </Link>
-                <a onClick={() => {
-                    addFavorite(movie.id)
-                    setLike(true);
-                    showToastMessage(`${movie.title} has been added to your favorites!`);
-                }} className="watch-btn heart-btn" data-id={movie.id}>
+                <a onClick={handleLikeClick} className="watch-btn heart-btn" data-id={movie.id}>
                     <FontAwesomeIcon icon={faHeart} style={like && {color: "red"}} />
                 </a>
             </div>

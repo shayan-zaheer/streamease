@@ -73,7 +73,7 @@ function Header() {
                          <FontAwesomeIcon icon={faTv} className="bx bx-tv" />
                          <span className="nav-link-title">Movies</span>
                      </Link>
-                     <Link to="/favorite" className="nav-link">
+                     <Link to="/favorites" className="nav-link">
                          <FontAwesomeIcon
                              icon={faHeart}
                              className="bx bx-heart"

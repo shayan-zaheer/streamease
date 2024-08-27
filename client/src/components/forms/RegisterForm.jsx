@@ -15,16 +15,16 @@ function RegisterForm({setActive, showPass, setShowPass}) {
 					<span className="icon">
                         <IonIcon icon={person} />
 					</span>
-					<input id="fnameInput" name="fname" type="text" required />
-					<label htmlFor="fname">First Name</label>
+					<input id="fnameInput" name="firstname" type="text" required />
+					<label htmlFor="firstname">First Name</label>
 				</div>
 
 				<div className="input-box">
 					<span className="icon">
                         <IonIcon icon={person} />
 					</span>
-					<input id="lnameInput" name="lname" type="text" required />
-					<label htmlFor="lname">Last Name</label>
+					<input id="lnameInput" name="lastname" type="text" required />
+					<label htmlFor="lastname">Last Name</label>
 				</div>
 
 				<div className="input-box">
@@ -52,8 +52,8 @@ function RegisterForm({setActive, showPass, setShowPass}) {
 					<span style={{cursor: "pointer"}} className="icon" onClick={() => setShowPass(!showPass)}>
                         {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
-					<input id="pInput" name="pass" type={showPass ? "password" : "text"} required />
-					<label htmlFor="pass">Password</label>
+					<input id="pInput" name="password" type={showPass ? "password" : "text"} required />
+					<label htmlFor="password">Password</label>
 				</div>
 
 				<div className="input-box">
@@ -90,6 +90,35 @@ function RegisterForm({setActive, showPass, setShowPass}) {
 			</form>
 		</div>
 	);
+}
+
+export const registerAction = async (res) => {
+    const formData = await res.request.formData();
+    const {firstname, lastname, username, email, password, profileImage} = Object.fromEntries(formData);
+    try{
+        const result = await axios.post(
+            "http://localhost:8000/auth/signup",
+            {
+                firstname,
+                lastname,
+                username,
+                email,
+                password,
+                profileImage,
+            },
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+        const data = result.data;
+        return console.log(data);
+    }
+    catch(err){
+        return console.error(err);
+    }
+    
 }
 
 export default RegisterForm;

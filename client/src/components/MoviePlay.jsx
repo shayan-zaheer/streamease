@@ -2,7 +2,7 @@ import ModalVideo from "react-modal-video";
 import "../../node_modules/react-modal-video/scss/modal-video.scss";
 import { useState } from "react";
 
-function MoviePlay({movie}) {
+function MoviePlay({ movie }) {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<>
@@ -16,8 +16,11 @@ function MoviePlay({movie}) {
 					<span>{movie.genre}</span>
 				</div>
 			</div>
-			<i onClick={() => setIsOpen(true)} className="bx bx-right-arrow play-movie"></i>
-            <ModalVideo
+			<i
+				onClick={() => setIsOpen(true)}
+				className="bx bx-right-arrow play-movie"
+			></i>
+			{/* <ModalVideo
 				classNames={{
 					modalVideo: "modal-video",
 					modalVideoClose: "modal-video-close",
@@ -29,10 +32,24 @@ function MoviePlay({movie}) {
 				channel="custom"
 				isOpen={isOpen}
 				url={movie.url}
+                videoId={movie.id} 
 				onClose={() => setIsOpen(false)}
 				autoplay={false}
 				allowFullScreen={true}
-			/>
+			/> */}
+			{isOpen && (
+				<div class="video-container">
+					<div class="video-box">
+						<video
+							id="myvideo"
+							src={movie.url}
+							controls
+							controlsList="nodownload"
+						></video>
+						<i onClick={() => setIsOpen(false)} class="bx bx-x close-video"></i>
+					</div>
+				</div>
+			)}
 		</>
 	);
 }

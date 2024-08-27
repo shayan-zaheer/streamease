@@ -166,27 +166,6 @@ exports.checkToken = async (request, response, next) => {
     }
 };
 
-exports.authenticate = async (request, response, next) => {
-    try {
-        const cookie = request.cookies.token;
-        if (cookie) {
-            response.json({
-                authenticated: true,
-            });
-            next();
-        } else {
-            return response.json({
-                authenticated: false,
-            });
-        }
-    } catch (err) {
-        return response.status(500).json({
-            status: "fail",
-            message: err.message,
-        });
-    }
-};
-
 exports.logout = async (request, response) => {
     try {
         response.clearCookie("uid", {

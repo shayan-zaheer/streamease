@@ -4,7 +4,7 @@ function ChangePass() {
 			<h1>Password Settings</h1>
 			<form id="change-form">
 				<div className="form-group">
-					<label for="oldPassword">Old password</label>
+					<label htmlFor="oldPassword">Old password</label>
 					<input
 						type="password"
 						id="oldPassword"
@@ -12,7 +12,7 @@ function ChangePass() {
 					/>
 				</div>
 				<div className="form-group">
-					<label for="newPassword">New password</label>
+					<label htmlFor="newPassword">New password</label>
 					<input
 						type="password"
 						id="newPassword"
@@ -20,7 +20,7 @@ function ChangePass() {
 					/>
 				</div>
 				<div className="form-group">
-					<label for="confirmPassword">Confirm new password</label>
+					<label htmlFor="confirmPassword">Confirm new password</label>
 					<input
 						type="password"
 						id="confirmPassword"
