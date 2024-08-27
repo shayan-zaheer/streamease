@@ -11,7 +11,8 @@ const favoritesSlice = createSlice({
             state.push(action.payload);
         },
         removeFavorite: (state, action) => {
-            return state.filter(movie => movie.title != action.payload.title);
+            console.log(action);
+            return state.filter(movie => movie.id != action.payload);
         }
     }
 });

@@ -4,28 +4,11 @@ import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-
-async function addFavorite(movieId){
-    try{
-        const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
-        return result;
-    }
-    catch(err){
-        return err;
-    }
-}
-
-async function removeFavorite(movieId){
-    try{
-        const result = await axios.post(`http://localhost:8000/movies/remove-favorite/${movieId}`, {}, {withCredentials: true});
-        return result;
-    }
-    catch(err){
-        return err;
-    }
-}
+import { useDispatch } from "react-redux";
+import { favoritesActions } from "../store/favoritesSlice";
 
 function MovieBox({ movie }) {
+    const dispatch = useDispatch();
     const [like, setLike] = useState(false);
 
     const showToastMessage = (message) => {
@@ -34,7 +17,29 @@ function MovieBox({ movie }) {
         });
       };
 
-      const handleLikeClick = async () => {
+      async function addFavorite(movieId){
+        try{
+            const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
+            return result;
+        }
+        catch(err){
+            return err;
+        }
+    }
+    
+    async function removeFavorite(movieId){
+        try{
+            const result = await axios.post(`http://localhost:8000/movies/remove-favorite/${movieId}`, {}, {withCredentials: true});
+            dispatch(favoritesActions.removeFavorite(movieId));
+            return result;
+        }
+        catch(err){
+            return err;
+        }
+    }
+    
+
+      const handleLikeClick = async (movieId) => {
         if (like) {
             await removeFavorite(movie.id);
             showToastMessage(`${movie.title} has been removed from your favorites!`);
@@ -58,7 +63,7 @@ function MovieBox({ movie }) {
                 >
                     <FontAwesomeIcon icon={faPlay} />
                 </Link>
-                <a onClick={handleLikeClick} className="watch-btn heart-btn" data-id={movie.id}>
+                <a onClick={() => handleLikeClick(movie.id)} className="watch-btn heart-btn" data-id={movie.id}>
                     <FontAwesomeIcon icon={faHeart} style={like && {color: "red"}} />
                 </a>
             </div>
