@@ -119,6 +119,7 @@ export const registerAction = async (res) => {
         );
         
         toast.success(`${firstname} ${lastname} has been registered! Kindly login!`, {
+            theme: "dark",
             position: "bottom-right"
         });
 

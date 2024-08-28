@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { favoritesActions } from "../store/favoritesSlice";
 
@@ -13,6 +13,7 @@ function MovieBox({ movie }) {
 
     const showToastMessage = (message) => {
         toast.success(message, {
+            theme: "dark",
           position: "bottom-right",
         });
       };
@@ -20,7 +21,7 @@ function MovieBox({ movie }) {
       async function addFavorite(movieId){
         try{
             const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
-            
+            dispatch(favoritesActions.addFavorite(movieId));
             return result;
         }
         catch(err){
@@ -68,7 +69,6 @@ function MovieBox({ movie }) {
                     <FontAwesomeIcon icon={faHeart} style={like && {color: "red"}} />
                 </a>
             </div>
-            <ToastContainer />
         </div>
     );
 }

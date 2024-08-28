@@ -15,10 +15,11 @@ function OTPForm() {
         const {otp, newPassword, confirmPassword} = Object.fromEntries(formData.entries());
         try{
             const response = await axios.patch("http://localhost:8000/auth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
-            console.log(response);
+            console.log(response);  
             const data = response.data;
             if(data.status === "success"){
                 toast.success(data.message, {
+                    theme: "dark",
                     position: "bottom-right"
                 });
             }
