@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { IonIcon } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
-import LoginForm from "../components/forms/LoginForm";
-import RegisterForm from "../components/forms/RegisterForm";
-import ForgetForm from "../components/forms/ForgetForm";
-import OTPForm from "../components/forms/OTPForm";
-import { Link } from "react-router-dom";
+// import LoginForm from "../components/forms/LoginForm";
+// import RegisterForm from "../components/forms/RegisterForm";
+// import ForgetForm from "../components/forms/ForgetForm";
+// import OTPForm from "../components/forms/OTPForm";
+import { Link, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 
-function Login() {
-    const [active, setActive] = useState("");
+function InitialPage() {
+    const [active, setActive] = useState(false);
     const [showPass, setShowPass] = useState(true);
 
 	return (
@@ -20,20 +20,17 @@ function Login() {
 						Stream<span>Ease</span>
 					</Link>
 
-					<button onClick={() => setActive("login")} className="btn btn-red-sm">Login</button>
+					<Link to="/login" onClick={() => setActive(true)} className="btn btn-red-sm">Login</Link>
 				</div>
 			</header>
 			<div className="main">
-				<div className={`box ${active != "" && "active-popup"}`}>
+				<div className={`box ${active && "active-popup"}`}>
 					<div className="hero active">
-						<span className="icon-close" onClick={() => setActive("")}>
+						<span className="icon-close" onClick={() => setActive(false)}>
                             <IonIcon icon={closeOutline} />
 						</span>
-						
-						{active === "login" && <LoginForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} /> }
-						{active === "register" && <RegisterForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} />}
-						{active === "forget" && <ForgetForm setActive={setActive} />}
-						{active === "otp" && <OTPForm setActive={setActive} showPass={showPass} setShowPass={setShowPass} />}
+
+                        <Outlet context={[showPass, setShowPass]} />
 
 					</div>
 				</div>
@@ -72,4 +69,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default InitialPage;

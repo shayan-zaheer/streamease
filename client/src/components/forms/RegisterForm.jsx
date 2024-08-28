@@ -1,7 +1,10 @@
 import { IonIcon } from '@ionic/react';
 import { image, mail, person, eye, eyeOff } from 'ionicons/icons';
+import { Link, useOutletContext } from 'react-router-dom';
 
-function RegisterForm({setActive, showPass, setShowPass}) {
+function RegisterForm() {
+    const [showPass, setShowPass] = useOutletContext();
+
 	return (
 		<div className="form-box register">
 			<h2>Registration</h2>
@@ -82,9 +85,9 @@ function RegisterForm({setActive, showPass, setShowPass}) {
 				<div className="login-register">
 					<p>
 						Already have an account?
-						<a onClick={() => setActive("login")} className="link">
+						<Link to="/login" className="link">
 							Login
-						</a>
+						</Link>
 					</p>
 				</div>
 			</form>

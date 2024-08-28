@@ -1,9 +1,11 @@
 import { IonIcon } from "@ionic/react";
 import { eye, eyeOff, mail } from "ionicons/icons";
-import { Form, redirect } from "react-router-dom";
+import { Form, Link, redirect, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
-function LoginForm({ setActive, showPass, setShowPass }) {
+function LoginForm() {
+    const [showPass, setShowPass] = useOutletContext();
+
 	return (
 		<div className="form-box login">
 			<h2>Login</h2>
@@ -40,9 +42,9 @@ function LoginForm({ setActive, showPass, setShowPass }) {
 						<input type="checkbox" />
 						Remember me
 					</label>
-					<a onClick={() => setActive("forget")} className="link">
+					<Link to="/forgot-password" className="link">
 						Forget Password?
-					</a>
+					</Link>
 				</div>
 				<button type="submit" className="boto">
 					Login
@@ -50,12 +52,11 @@ function LoginForm({ setActive, showPass, setShowPass }) {
 				<div className="login-register">
 					<p>
 						Don't have an account?
-						<a
-							onClick={() => setActive("register")}
+						<Link to="/register"
 							className="link"
 						>
 							Register
-						</a>
+						</Link>
 					</p>
 				</div>
 			</Form>

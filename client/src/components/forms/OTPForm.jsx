@@ -1,8 +1,10 @@
 import { IonIcon } from '@ionic/react';
 import { mail, eye, eyeOff } from 'ionicons/icons';
 import { useState } from 'react';
+import { Link, useOutletContext } from 'react-router-dom';
 
-function OTPForm({setActive, showPass, setShowPass}) {
+function OTPForm() {
+    const [showPass, setShowPass] = useOutletContext();
     const [confirmPass, setConfirmPass] = useState(false);
 	return (
 		<div className="form-box otp-form">
@@ -50,9 +52,9 @@ function OTPForm({setActive, showPass, setShowPass}) {
 				<div className="login-register">
 					<p>
 						Remembered?{" "}
-						<a onClick={() => setActive("login")} className="link">
+						<Link to="/login" className="link">
 							Login
-						</a>
+						</Link>
 					</p>
 				</div>
 			</form>

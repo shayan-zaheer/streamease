@@ -1,7 +1,8 @@
 import { IonIcon } from '@ionic/react';
 import { mail } from 'ionicons/icons';
+import { Link } from 'react-router-dom';
 
-function ForgetForm({setActive}) {
+function ForgetForm() {
 	return (
 		<div className="form-box forgot-password">
 			<h2>Forgot Password</h2>
@@ -29,15 +30,15 @@ function ForgetForm({setActive}) {
 				<div className="login-register">
 					<p>
 						Remembered? {" "}
-						<a onClick={() => setActive("login")} className="link">
+						<Link to="/login" className="link">
 							Login
-						</a>
+						</Link>
 					</p>
 					<p>
 						Received OTP? {" "}
-						<a onClick={() => setActive("otp")} className="link">
+						<Link to="/otp" className="link">
 							Continue
-						</a>
+						</Link>
 					</p>
 				</div>
 			</form>
