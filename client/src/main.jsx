@@ -12,7 +12,7 @@ import HomePage from "./pages/HomePage.jsx";
 import InitialPage from "./pages/InitialPage.jsx";
 import PlayPage from "./pages/PlayPage.jsx";
 import LoginForm, { loginAction } from "./components/forms/LoginForm.jsx";
-import RegisterForm from "./components/forms/RegisterForm.jsx";
+import RegisterForm, { registerAction } from "./components/forms/RegisterForm.jsx";
 import ForgetForm from "./components/forms/ForgetForm.jsx";
 import OTPForm from "./components/forms/OTPForm.jsx";
 
@@ -44,11 +44,13 @@ const router = createBrowserRouter([
 		children: [
             {
                 path: "/login",
-                element: <LoginForm />
+                element: <LoginForm />,
+                action: loginAction
             },
             {
                 path: "/register",
-                element: <RegisterForm />
+                element: <RegisterForm />,
+                action: registerAction
             },
             {
                 path: "/forgot-password",

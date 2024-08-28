@@ -1,6 +1,7 @@
 import { IonIcon } from '@ionic/react';
 import { image, mail, person, eye, eyeOff } from 'ionicons/icons';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Form, Link, redirect, useOutletContext } from 'react-router-dom';
+import axios from "axios";
 
 function RegisterForm() {
     const [showPass, setShowPass] = useOutletContext();
@@ -8,7 +9,7 @@ function RegisterForm() {
 	return (
 		<div className="form-box register">
 			<h2>Registration</h2>
-			<form
+			<Form
 				action="#"
 				id="signupForm"
 				method="POST"
@@ -90,7 +91,7 @@ function RegisterForm() {
 						</Link>
 					</p>
 				</div>
-			</form>
+			</Form>
 		</div>
 	);
 }
@@ -116,7 +117,8 @@ export const registerAction = async (res) => {
             }
         );
         const data = result.data;
-        return console.log(data);
+        console.log(data);
+        return redirect("/home-page");
     }
     catch(err){
         return console.error(err);
