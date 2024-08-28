@@ -1,15 +1,17 @@
 import { IonIcon } from '@ionic/react';
 import { mail, eye, eyeOff } from 'ionicons/icons';
 import { useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Form, Link, useOutletContext } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from "axios";
 
 function OTPForm() {
-    const [showPass, setShowPass] = useOutletContext();
+    const [email, showPass, setShowPass] = useOutletContext();
     const [confirmPass, setConfirmPass] = useState(false);
 	return (
 		<div className="form-box otp-form">
 			<h2>Enter OTP</h2>  
-			<form
+			<Form
 				action="#"
 				id="otpForm"
 				method="POST"
@@ -57,9 +59,28 @@ function OTPForm() {
 						</Link>
 					</p>
 				</div>
-			</form>
+			</Form>
 		</div>
 	);
+}
+
+export const otpAction = async (res) => {
+    const formData = await res.request.formData();
+    const {otp, newPassword, confirmPassword} = Object.fromEntries(formData);
+    try{
+        const response = await axios.patch("http://localhost:8000/auth/reset-password", {mail, otp, newPassword, confirmPassword}, {withCredentials: true});
+        const data = response.data;
+        if(data.status === "success"){
+            toast.success(data.message, {
+                position: "bottom-right"
+            });
+        }
+    }
+    catch(err){
+        toast.error(data.messsage, {
+            position: "bottom-right"
+        })
+    }
 }
 
 export default OTPForm;

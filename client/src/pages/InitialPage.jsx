@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { IonIcon } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
-// import LoginForm from "../components/forms/LoginForm";
-// import RegisterForm from "../components/forms/RegisterForm";
-// import ForgetForm from "../components/forms/ForgetForm";
-// import OTPForm from "../components/forms/OTPForm";
 import { Link, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Footer from "../components/Footer";
+import 'react-toastify/dist/ReactToastify.css';
 
 function InitialPage() {
     const [active, setActive] = useState(false);
     const [showPass, setShowPass] = useState(true);
-
+    const [email, setEmail] = useState("");
+    
 	return (
-		<>
+        <>
 			<header>
 				<div className="nav container">
 					<Link to="#" className="logo">
@@ -30,11 +29,12 @@ function InitialPage() {
                             <IonIcon icon={closeOutline} />
 						</span>
 
-                        <Outlet context={[showPass, setShowPass]} />
+                        <Outlet context={[showPass, setShowPass, email, setEmail]} />
 
 					</div>
 				</div>
 			</div>
+        <ToastContainer />
 			<div className="seperation"></div>
 
 			<section className="first">

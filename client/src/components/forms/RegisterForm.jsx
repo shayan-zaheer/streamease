@@ -2,6 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { image, mail, person, eye, eyeOff } from 'ionicons/icons';
 import { Form, Link, redirect, useOutletContext } from 'react-router-dom';
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 function RegisterForm() {
     const [showPass, setShowPass] = useOutletContext();
@@ -100,7 +101,7 @@ export const registerAction = async (res) => {
     const formData = await res.request.formData();
     const {firstname, lastname, username, email, password, profileImage} = Object.fromEntries(formData);
     try{
-        const result = await axios.post(
+        await axios.post(
             "http://localhost:8000/auth/signup",
             {
                 firstname,
@@ -116,9 +117,12 @@ export const registerAction = async (res) => {
                 },
             }
         );
-        const data = result.data;
-        console.log(data);
-        return redirect("/home-page");
+        
+        toast.success(`${firstname} ${lastname} has been registered! Kindly login!`, {
+            position: "bottom-right"
+        });
+
+        return redirect("/login");
     }
     catch(err){
         return console.error(err);

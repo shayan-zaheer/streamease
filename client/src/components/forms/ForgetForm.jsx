@@ -1,13 +1,16 @@
 import { IonIcon } from '@ionic/react';
 import { mail } from 'ionicons/icons';
-import { Link } from 'react-router-dom';
+import { Form, Link, useOutletContext } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from "axios";
 
 function ForgetForm() {
+    const [setEmail] = useOutletContext();
+
 	return (
 		<div className="form-box forgot-password">
 			<h2>Forgot Password</h2>
-			<form
-				action="#"
+			<Form
 				id="forgotPasswordForm"
 				method="POST"
 				encType="multipart/form-data"
@@ -41,9 +44,41 @@ function ForgetForm() {
 						</Link>
 					</p>
 				</div>
-			</form>
+			</Form>
 		</div>
 	);
+}
+
+export const forgotAction = async (res) => {
+    const formData = await res.request.formData();
+    const {email} = Object.fromEntries(formData);
+    console.log(email);
+    try{
+        const toastId = toast.loading("Sending OTP...", {
+            theme: "dark",
+            position: "bottom-right"
+        });
+        const response = await axios.patch("http://localhost:8000/auth/forgot-password",
+            { email }
+        );
+        setEmail(email);
+        const data = response.data;
+        toast.update(toastId, {
+            render: data.message,
+            type: "success",
+            isLoading: false,
+            autoClose: 4000,
+            position: "bottom-right"
+        });
+        return data;
+    }
+    catch(err){
+        toast.error(err, {
+            position: "bottom-right"
+        })
+        return err;
+    }
+    
 }
 
 export default ForgetForm;
