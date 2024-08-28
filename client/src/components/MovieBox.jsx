@@ -66,7 +66,7 @@ function MovieBox({ movie }) {
                     <FontAwesomeIcon icon={faPlay} />
                 </Link>
                 <a onClick={() => handleLikeClick(movie.id)} className="watch-btn heart-btn" data-id={movie.id}>
-                    <FontAwesomeIcon icon={faHeart} style={like && {color: "red"}} />
+                    <FontAwesomeIcon icon={faHeart} style={{ color: like ? 'red' : 'inherit', cursor: 'pointer' }} />
                 </a>
             </div>
         </div>
