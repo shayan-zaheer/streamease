@@ -2,7 +2,7 @@ function Account(){
     return (
         <div className="main-content" id="accountSettings">
 				<h1>Account Settings</h1>
-				<form id="update-form">
+				<form className="profile-form">
 					<div className="form-group">
 						<label htmlFor="firstName">First Name</label>
 						<input type="text" id="firstName" name="firstName" />

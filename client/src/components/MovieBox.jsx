@@ -20,6 +20,7 @@ function MovieBox({ movie }) {
       async function addFavorite(movieId){
         try{
             const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
+            
             return result;
         }
         catch(err){

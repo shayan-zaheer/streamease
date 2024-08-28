@@ -16,10 +16,6 @@ function Hero() {
                 <h1 className="home-title">
                     {generalMovies[randomIndex].title}
                 </h1>
-                <a className="watch-btn">
-                    <i className="bx bx-right-arrow"></i>
-                    <span>Watch the Trailer</span>
-                </a>
             </div>
         </section>
     );

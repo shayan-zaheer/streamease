@@ -2,7 +2,7 @@ function ChangePass() {
 	return (
 		<div className="main-content" id="passwordSettings">
 			<h1>Password Settings</h1>
-			<form id="change-form">
+			<form className="profile-form">
 				<div className="form-group">
 					<label htmlFor="oldPassword">Old password</label>
 					<input

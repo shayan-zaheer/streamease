@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MoviePlay from "../components/MoviePlay";
 import axios from "axios";
+import MovieDescription from "../components/MovieDescription";
 
 function PlayPage() {
 	const [movie, setMovie] = useState("");
@@ -9,7 +10,7 @@ function PlayPage() {
 		const urlParams = new URLSearchParams(window.location.search);
 		const movieId = urlParams.get("id");
 
-        const controller = new AbortController();
+		const controller = new AbortController();
 		const signal = controller.signal;
 
 		const fetchMovie = async () => {
@@ -35,9 +36,15 @@ function PlayPage() {
 	}, []);
 
 	return (
-        <div className="play-container container">
-            {movie && <MoviePlay movie={movie} />}
-        </div>
+		<>
+			<div className="play-container container">
+				{movie && <MoviePlay movie={movie} />}
+			</div>
+
+			<div class="about-movie container">
+                {movie && <MovieDescription movie={movie}/>}
+            </div>
+		</>
 	);
 }
 
