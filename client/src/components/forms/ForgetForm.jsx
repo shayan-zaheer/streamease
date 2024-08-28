@@ -1,16 +1,59 @@
-import { IonIcon } from '@ionic/react';
-import { mail } from 'ionicons/icons';
-import { Form, Link, useOutletContext } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { IonIcon } from "@ionic/react";
+import { mail } from "ionicons/icons";
+import { Form, Link, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function ForgetForm() {
-    const [setEmail] = useOutletContext();
+	const [email, setEmail, showPass, setShowPass] = useOutletContext();
+
+	async function handleSubmit(event) {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		const { email } = Object.fromEntries(formData.entries());
+
+		let toastId; 
+		try {
+			toastId = toast.loading("Sending OTP...", {
+				theme: "dark",
+				position: "bottom-right",
+			});
+
+			const response = await axios.patch(
+				"http://localhost:8000/auth/forgot-password",
+				{ email }
+			);
+
+			setEmail(email);
+
+			const data = response.data;
+			toast.update(toastId, {
+				render: data.message,
+				type: "success",
+				isLoading: false,
+				autoClose: 4000,
+				position: "bottom-right",
+			});
+			return data;
+		} catch (err) {
+			console.log(err);
+			const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
+			toast.update(toastId, {
+				render: errorMessage,
+				type: "error",
+				isLoading: false,
+				autoClose: 4000,
+				position: "bottom-right",
+			});
+			return { error: errorMessage };
+		}
+	}
 
 	return (
 		<div className="form-box forgot-password">
 			<h2>Forgot Password</h2>
 			<Form
+				onSubmit={handleSubmit}
 				id="forgotPasswordForm"
 				method="POST"
 				encType="multipart/form-data"
@@ -32,13 +75,13 @@ function ForgetForm() {
 				</button>
 				<div className="login-register">
 					<p>
-						Remembered? {" "}
+						Remembered?{" "}
 						<Link to="/login" className="link">
 							Login
 						</Link>
 					</p>
 					<p>
-						Received OTP? {" "}
+						Received OTP?{" "}
 						<Link to="/otp" className="link">
 							Continue
 						</Link>
@@ -47,38 +90,6 @@ function ForgetForm() {
 			</Form>
 		</div>
 	);
-}
-
-export const forgotAction = async (res) => {
-    const formData = await res.request.formData();
-    const {email} = Object.fromEntries(formData);
-    console.log(email);
-    try{
-        const toastId = toast.loading("Sending OTP...", {
-            theme: "dark",
-            position: "bottom-right"
-        });
-        const response = await axios.patch("http://localhost:8000/auth/forgot-password",
-            { email }
-        );
-        setEmail(email);
-        const data = response.data;
-        toast.update(toastId, {
-            render: data.message,
-            type: "success",
-            isLoading: false,
-            autoClose: 4000,
-            position: "bottom-right"
-        });
-        return data;
-    }
-    catch(err){
-        toast.error(err, {
-            position: "bottom-right"
-        })
-        return err;
-    }
-    
 }
 
 export default ForgetForm;

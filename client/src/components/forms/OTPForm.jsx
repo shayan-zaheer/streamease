@@ -6,13 +6,35 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 
 function OTPForm() {
-    const [email, showPass, setShowPass] = useOutletContext();
+    const [email, setEmail, showPass, setShowPass] = useOutletContext();
     const [confirmPass, setConfirmPass] = useState(false);
+
+    async function handleSubmit(event){
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const {otp, newPassword, confirmPassword} = Object.fromEntries(formData.entries());
+        try{
+            const response = await axios.patch("http://localhost:8000/auth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
+            console.log(response);
+            const data = response.data;
+            if(data.status === "success"){
+                toast.success(data.message, {
+                    position: "bottom-right"
+                });
+            }
+        }
+        catch(err){
+            toast.error(data.messsage, {
+                position: "bottom-right"
+            })
+        }
+    };
+
 	return (
 		<div className="form-box otp-form">
 			<h2>Enter OTP</h2>  
 			<Form
-				action="#"
+				onSubmit={handleSubmit}
 				id="otpForm"
 				method="POST"
 				encType="multipart/form-data"
@@ -64,23 +86,23 @@ function OTPForm() {
 	);
 }
 
-export const otpAction = async (res) => {
-    const formData = await res.request.formData();
-    const {otp, newPassword, confirmPassword} = Object.fromEntries(formData);
-    try{
-        const response = await axios.patch("http://localhost:8000/auth/reset-password", {mail, otp, newPassword, confirmPassword}, {withCredentials: true});
-        const data = response.data;
-        if(data.status === "success"){
-            toast.success(data.message, {
-                position: "bottom-right"
-            });
-        }
-    }
-    catch(err){
-        toast.error(data.messsage, {
-            position: "bottom-right"
-        })
-    }
-}
+// export const otpAction = async (res) => {
+//     const formData = await res.request.formData();
+//     const {otp, newPassword, confirmPassword} = Object.fromEntries(formData);
+//     try{
+//         const response = await axios.patch("http://localhost:8000/auth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
+//         const data = response.data;
+//         if(data.status === "success"){
+//             toast.success(data.message, {
+//                 position: "bottom-right"
+//             });
+//         }
+//     }
+//     catch(err){
+//         toast.error(data.messsage, {
+//             position: "bottom-right"
+//         })
+//     }
+// }
 
 export default OTPForm;

@@ -286,12 +286,12 @@ exports.updatePassword = async (request, response) => {
 
 exports.resetPassword = async (request, response) => {
     try {
-        const { mail, otp, newPassword, confirmPassword} = request.body;
+        const { email, otp, newPassword, confirmPassword} = request.body;
 
         console.log(request.body);
         
         const SQL = "SELECT otp FROM USERS WHERE email = ?";
-        const [{ otp: storedOtp }] = await executeQuery(SQL, [mail]);
+        const [{ otp: storedOtp }] = await executeQuery(SQL, [email]);
 
         console.log("DB OTP:\n", storedOtp)
 
@@ -299,7 +299,7 @@ exports.resetPassword = async (request, response) => {
             if(newPassword == confirmPassword){
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
                 const updateSQL = "UPDATE USERS SET password = ?, otp = NULL WHERE email = ?";
-                await executeQuery(updateSQL, [hashedPassword, mail]);
+                await executeQuery(updateSQL, [hashedPassword, email]);
 
                 response.status(200).json({
                     status: "success",
@@ -319,6 +319,7 @@ exports.resetPassword = async (request, response) => {
             });
         }
     } catch (err) {
+        console.log(err);
         response.status(500).json({
             status: "fail",
             message: err.message
