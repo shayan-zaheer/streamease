@@ -116,7 +116,7 @@ exports.getMovieByID = async (request, response) => {
 			sharedKeyCredential
 		).toString();
 
-        
+
 
 		const videoUrl = `${blobClient.url}?${sasToken}`;
 		results[0].url = videoUrl;
@@ -175,7 +175,12 @@ exports.addFavorite = async (request, response) => {
         });
     }
     catch(err){
-        console.error(err);
+        if(err.code === "ER_DUP_ENTRY"){
+            return response.status(409).json({
+                status: "fail",
+                message: "This movie already exists in the favorites page!"
+            });
+        }
         response.status(500).json({
             status: "fail",
             message: err.message

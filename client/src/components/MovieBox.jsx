@@ -18,13 +18,23 @@ function MovieBox({ movie }) {
         });
       };
 
-      async function addFavorite(movieId){
+      async function addFavorite(movieId, movieTitle){
         try{
             const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
             dispatch(favoritesActions.addFavorite(movieId));
             return result;
         }
         catch(err){
+            let statusCode = err.response.status;
+            if(statusCode === 409){
+                toast.error(`${movieTitle} is already in favorites!`,
+                    {
+                        theme: "dark",
+                        position: "bottom-right"
+                    }
+                )
+                return statusCode;
+            }
             return err;
         }
     }
@@ -41,13 +51,16 @@ function MovieBox({ movie }) {
     }
     
 
-      const handleLikeClick = async (movieId) => {
+      const handleLikeClick = async (movieId, movieTitle) => {
         if (like) {
-            await removeFavorite(movie.id);
-            showToastMessage(`${movie.title} has been removed from your favorites!`);
+            await removeFavorite(movieId);
+            showToastMessage(`${movieTitle} has been removed from your favorites!`);
         } else {
-            await addFavorite(movie.id);
-            showToastMessage(`${movie.title} has been added to your favorites!`);
+            const result = await addFavorite(movieId, movieTitle);
+            if(result === 409){
+                return;
+            }
+            showToastMessage(`${movieTitle} has been added to your favorites!`);
         }
         setLike(!like);
     };
@@ -65,7 +78,7 @@ function MovieBox({ movie }) {
                 >
                     <FontAwesomeIcon icon={faPlay} />
                 </Link>
-                <a onClick={() => handleLikeClick(movie.id)} className="watch-btn heart-btn" data-id={movie.id}>
+                <a onClick={() => handleLikeClick(movie.id, movie.title)} className="watch-btn heart-btn" data-id={movie.id}>
                     <FontAwesomeIcon icon={faHeart} style={{ color: like ? 'red' : 'inherit', cursor: 'pointer' }} />
                 </a>
             </div>
