@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 
 function OTPForm() {
-    const [email, setEmail, showPass, setShowPass] = useOutletContext();
-    const [confirmPass, setConfirmPass] = useState(false);
+    const [showPass, setShowPass, email] = useOutletContext();
+    const [confirmPass, setConfirmPass] = useState(true);
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -25,7 +25,8 @@ function OTPForm() {
             }
         }
         catch(err){
-            toast.error(data.messsage, {
+            toast.error(err.response.data.message, {
+                theme: "dark",
                 position: "bottom-right"
             })
         }

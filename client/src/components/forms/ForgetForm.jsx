@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 function ForgetForm() {
-	const [email, setEmail, showPass, setShowPass] = useOutletContext();
+	const [, , , setEmail] = useOutletContext();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
