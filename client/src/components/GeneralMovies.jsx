@@ -3,7 +3,6 @@ import MovieBox from "./MovieBox";
 
 function GeneralMovies(){
     const {generalMovies} = useSelector(store => store.movies);
-    console.log("General:", generalMovies);
 
     return (
         <section className="movies container" id="movies">
