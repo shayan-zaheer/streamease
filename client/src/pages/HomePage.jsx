@@ -5,6 +5,7 @@ import FetchMovies from "../components/FetchMovies";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+// import "../css/HomePage.module.css";
 
 function HomePage(){
     const { fetching, fetchDone } = useSelector(store => store.status);

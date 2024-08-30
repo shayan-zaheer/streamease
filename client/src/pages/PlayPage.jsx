@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import MoviePlay from "../components/MoviePlay";
 import axios from "axios";
 import MovieDescription from "../components/MovieDescription";
+import MovieCast from "../components/MovieCast";
+// import "../css/PlayPage.module.css";
 
 function PlayPage() {
 	const [movie, setMovie] = useState("");
@@ -43,7 +45,11 @@ function PlayPage() {
 
 			<div class="about-movie container">
                 {movie && <MovieDescription movie={movie}/>}
+                <div id="cast">
+                    {movie && <MovieCast movie={movie} />}
+                </div>
             </div>
+
 		</>
 	);
 }

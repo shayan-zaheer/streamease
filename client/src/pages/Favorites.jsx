@@ -1,6 +1,7 @@
 import FetchFavorites from "../components/FetchFavorites";
 import FavoriteMovie from "../components/FavoriteMovie";
 import { useSelector } from "react-redux";
+// import "../css/Favorites.module.css";
 
 function Favorites() {
 	const favorites = useSelector(store => store.favorites);

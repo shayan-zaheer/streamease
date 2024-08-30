@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProfileSidebar from "../components/ProfileSidebar";
 import Account from "../components/Account";
 import ChangePass from "../components/ChangePass";
+// import "../css/Profile.module.css";
 
 function Profile() {
     const [page, setPage] = useState("account");
