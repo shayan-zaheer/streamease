@@ -14,7 +14,7 @@ function OTPForm() {
         const formData = new FormData(event.target);
         const {otp, newPassword, confirmPassword} = Object.fromEntries(formData.entries());
         try{
-            const response = await axios.patch("http://localhost:8000/auth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}auth/reset-password`, {email, otp, newPassword, confirmPassword}, {withCredentials: true});
             console.log(response);  
             const data = response.data;
             if(data.status === "success"){
@@ -92,7 +92,7 @@ function OTPForm() {
 //     const formData = await res.request.formData();
 //     const {otp, newPassword, confirmPassword} = Object.fromEntries(formData);
 //     try{
-//         const response = await axios.patch("http://localhost:8000/auth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
+//         const response = await axios.patch("${import.meta.env.VITE_BACKEND_URLauth/reset-password", {email, otp, newPassword, confirmPassword}, {withCredentials: true});
 //         const data = response.data;
 //         if(data.status === "success"){
 //             toast.success(data.message, {

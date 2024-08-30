@@ -21,8 +21,8 @@ function FetchMovies() {
                 dispatch(statusActions.markFetchingStarted());
 
                 const [generalMovies, popularMovies] = await Promise.all([
-                    axios.get("http://localhost:8000/movies/general", { signal, withCredentials: true}),
-                    axios.get("http://localhost:8000/movies/popular", { signal , withCredentials: true})
+                    axios.get(`${import.meta.env.VITE_BACKEND_URL}movies/general`, { signal, withCredentials: true}),
+                    axios.get(`${import.meta.env.VITE_BACKEND_URL}movies/popular`, { signal , withCredentials: true})
                 ]);
 
                 dispatch(moviesActions.addGeneralMovies(generalMovies.data.movies));

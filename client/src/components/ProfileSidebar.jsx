@@ -4,7 +4,7 @@ import axios from "axios";
 
 async function logout(navigate) {
     try {
-        await axios.post("http://localhost:8000/auth/logout", {}, { withCredentials: true });
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}auth/logout`, {}, { withCredentials: true });
         navigate("/login");
     } catch (error) {
         console.error("Logout failed", error);

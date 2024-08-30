@@ -10,7 +10,7 @@ const favoritesSlice = createSlice({
         },
         addFavorite: (state, action) => {
             async function getMovie(id){
-                const result = await axios.get(`http://localhost:8000/movies/${id}`, {withCredentials: true});
+                const result = await axios.get(`${import.meta.env.VITE_BACKEND_URL}movies/${id}`, {withCredentials: true});
                 const movie = result.data.movie;
                 state.push(movie);
             }

@@ -12,13 +12,13 @@ function FetchFavorites(){
 
         async function showFavorites() {
             try {
-                const response = await axios.get(`http://localhost:8000/movies/favorites`, { signal, withCredentials: true });
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}movies/favorites`, { signal, withCredentials: true });
                 const data = response.data.result;
                 const movieIds = data.map(item => item.movie_id);
 
                 const movieObjs = await Promise.all(
                     movieIds.map(async (movieId) => {
-                        const movieResponse = await axios.get(`http://localhost:8000/movies/moviedata/${movieId}`, { signal, withCredentials: true });
+                        const movieResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}movies/moviedata/${movieId}`, { signal, withCredentials: true });
                         return movieResponse.data.result[0];
                     })
                 );

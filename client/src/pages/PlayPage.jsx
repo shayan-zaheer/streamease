@@ -4,7 +4,6 @@ import axios from "axios";
 import MovieDescription from "../components/MovieDescription";
 import MovieCast from "../components/MovieCast";
 import { useSelector } from "react-redux";
-// import "../css/PlayPage.module.css";
 
 function PlayPage() {
     const status = useSelector(store => store.status);
@@ -21,7 +20,7 @@ function PlayPage() {
 			if (movieId) {
 				try {
 					const data = await axios.get(
-						`http://localhost:8000/movies/${movieId}`,
+						`${import.meta.env.VITE_BACKEND_URL}movies/${movieId}`,
 						{ signal, withCredentials: true }
 					);
 					const response = data.data;

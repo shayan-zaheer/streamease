@@ -14,7 +14,7 @@ function Header() {
         async function updateProfile(){
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/users/userdata",
+                    `${import.meta.env.VITE_BACKEND_URL}users/userdata`,
                     { withCredentials: true }
                 );
                 const userData = response.data.result[0];

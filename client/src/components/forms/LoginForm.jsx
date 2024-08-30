@@ -70,7 +70,7 @@ export const loginAction = async (res) => {
 
 	try {
 		const result = await axios.post(
-			"http://localhost:8000/auth/login",
+			`${import.meta.env.VITE_BACKEND_URL}auth/login`,
 			{ email, password },
 			{ withCredentials: true }
 		);

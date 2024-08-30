@@ -20,7 +20,7 @@ function MovieBox({ movie }) {
 
       async function addFavorite(movieId, movieTitle){
         try{
-            const result = await axios.post(`http://localhost:8000/movies/add-favorite/${movieId}`, {}, {withCredentials: true});
+            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}movies/add-favorite/${movieId}`, {}, {withCredentials: true});
             dispatch(favoritesActions.addFavorite(movieId));
             return result;
         }
@@ -41,7 +41,7 @@ function MovieBox({ movie }) {
     
     async function removeFavorite(movieId){
         try{
-            const result = await axios.post(`http://localhost:8000/movies/remove-favorite/${movieId}`, {}, {withCredentials: true});
+            const result = await axios.post(`${import.meta.env.VITE_BACKEND_URL}movies/remove-favorite/${movieId}`, {}, {withCredentials: true});
             dispatch(favoritesActions.removeFavorite(movieId));
             return result;
         }

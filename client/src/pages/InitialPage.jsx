@@ -5,7 +5,6 @@ import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Footer from "../components/Footer";
 import 'react-toastify/dist/ReactToastify.css';
-// import "../css/HomePage.module.css";
 
 function InitialPage() {
     const [active, setActive] = useState(false);

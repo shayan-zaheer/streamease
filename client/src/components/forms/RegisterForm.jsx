@@ -102,7 +102,7 @@ export const registerAction = async (res) => {
     const {firstname, lastname, username, email, password, profileImage} = Object.fromEntries(formData);
     try{
         await axios.post(
-            "http://localhost:8000/auth/signup",
+            `${import.meta.env.VITE_BACKEND_URL}auth/signup`,
             {
                 firstname,
                 lastname,

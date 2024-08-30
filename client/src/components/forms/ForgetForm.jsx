@@ -20,7 +20,7 @@ function ForgetForm() {
 			});
 
 			const response = await axios.patch(
-				"http://localhost:8000/auth/forgot-password",
+				`${import.meta.env.VITE_BACKEND_URL}auth/forgot-password`,
 				{ email }
 			);
 
