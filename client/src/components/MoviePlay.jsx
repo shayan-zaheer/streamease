@@ -1,5 +1,5 @@
-import ModalVideo from "react-modal-video";
-import "../../node_modules/react-modal-video/scss/modal-video.scss";
+import { faClose, faStar, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 function MoviePlay({ movie }) {
@@ -10,7 +10,8 @@ function MoviePlay({ movie }) {
 			<div className="play-text">
 				<h2>{movie.title}</h2>
 				<div className="raiting">
-					<i className="bx bxs-star"></i> {movie.vote_average}
+                    <FontAwesomeIcon icon={faStar} />
+					 {movie.vote_average}
 				</div>
 				<div className="tags">
 					<span>{movie.genre}</span>
@@ -19,8 +20,38 @@ function MoviePlay({ movie }) {
 			<i
 				onClick={() => setIsOpen(true)}
 				className="bx bx-right-arrow play-movie"
-			></i>
-			{/* <ModalVideo
+			>
+                <FontAwesomeIcon icon={faPlay} />
+            </i>
+			{isOpen && (
+				<div class="video-container">
+					<div class="video-box">
+						<video
+							id="myvideo"
+							src={movie.url}
+							controls
+							preload="auto"
+							controlsList="nodownload"
+						></video>
+						<i
+							onClick={() => setIsOpen(false)}
+							class="bx bx-x close-video"
+						>
+							<FontAwesomeIcon
+								icon={faClose}
+								style={{ cursor: "pointer" }}
+							/>
+						</i>
+					</div>
+				</div>
+			)}
+		</>
+	);
+}
+
+export default MoviePlay;
+
+{/* <ModalVideo
 				classNames={{
 					modalVideo: "modal-video",
 					modalVideoClose: "modal-video-close",
@@ -37,21 +68,3 @@ function MoviePlay({ movie }) {
 				autoplay={false}
 				allowFullScreen={true}
 			/> */}
-			{isOpen && (
-				<div class="video-container">
-					<div class="video-box">
-						<video
-							id="myvideo"
-							src={movie.url}
-							controls
-							controlsList="nodownload"
-						></video>
-						<i onClick={() => setIsOpen(false)} class="bx bx-x close-video"></i>
-					</div>
-				</div>
-			)}
-		</>
-	);
-}
-
-export default MoviePlay;

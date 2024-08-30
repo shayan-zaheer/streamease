@@ -3,9 +3,11 @@ import MoviePlay from "../components/MoviePlay";
 import axios from "axios";
 import MovieDescription from "../components/MovieDescription";
 import MovieCast from "../components/MovieCast";
+import { useSelector } from "react-redux";
 // import "../css/PlayPage.module.css";
 
 function PlayPage() {
+    const status = useSelector(store => store.status);
 	const [movie, setMovie] = useState("");
 
 	useEffect(() => {
@@ -38,19 +40,19 @@ function PlayPage() {
 	}, []);
 
 	return (
-		<>
-			<div className="play-container container">
-				{movie && <MoviePlay movie={movie} />}
-			</div>
-
-			<div class="about-movie container">
-                {movie && <MovieDescription movie={movie}/>}
-                <div id="cast">
-                    {movie && <MovieCast movie={movie} />}
+                <>
+                <div className="play-container container">
+                    {movie && <MoviePlay key={movie.id} movie={movie} />}
                 </div>
-            </div>
-
-		</>
+    
+                <div class="about-movie container">
+                    {movie && <MovieDescription key={movie.id} movie={movie}/>}
+                    <div id="cast">
+                        {movie && <MovieCast movie={movie} />}
+                    </div>
+                </div>
+            </>
+		
 	);
 }
 

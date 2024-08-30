@@ -45,7 +45,7 @@ function MovieCast({ movie }) {
                                   className="cast-img"
                               />
                               <span className="cast-title">
-                                  ${member.original_name}
+                                  {member.original_name}
                               </span>
                           </div>
 				);

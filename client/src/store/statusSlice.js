@@ -10,6 +10,9 @@ const statusSlice = createSlice({
 		markFetchDone: (state) => {
 			state.fetchDone = true;
 		},
+        markFetchStart: (state) => {
+            state.fetchDone = false;
+        },
         markFetchingStarted: (state) => {
             state.fetching = true;
         },
