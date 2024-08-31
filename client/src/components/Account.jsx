@@ -2,13 +2,14 @@ function Account(){
 
     async function handleSubmit(e){
         e.preventDefault();
-        const formData = new FormData(event.target);
+        const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
 
         try{
             const result = await axios.patch("http://localhost:8000/users/update-profile", formObject, {
                 withCredentials: true
             });
+            console.log(result);
         }
         catch(err){
             console.error(err);
@@ -18,7 +19,7 @@ function Account(){
     return (
         <div className="main-content" id="accountSettings">
 				<h1>Account Settings</h1>
-				<form className="profile-form">
+				<form onSubmit={handleSubmit} className="profile-form">
 					<div className="form-group">
 						<label htmlFor="firstName">First Name</label>
 						<input type="text" id="firstName" name="firstName" />
