@@ -1,4 +1,20 @@
 function Account(){
+
+    async function handleSubmit(e){
+        e.preventDefault();
+        const formData = new FormData(event.target);
+        const formObject = Object.fromEntries(formData.entries());
+
+        try{
+            const result = await axios.patch("http://localhost:8000/users/update-profile", formObject, {
+                withCredentials: true
+            });
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
     return (
         <div className="main-content" id="accountSettings">
 				<h1>Account Settings</h1>
