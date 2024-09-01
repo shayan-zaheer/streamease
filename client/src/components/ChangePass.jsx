@@ -1,4 +1,21 @@
 function ChangePass() {
+    async function handleSubmit(e){
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const formObject = Object.fromEntries(formData.entries());
+
+        try{
+            const result = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}auth/update-password`, formObject, {
+                withCredentials: true
+            });
+            console.log(result);
+        }
+        catch(err){
+            
+            console.error(err);
+        }
+    }
+
 	return (
 		<div className="main-content" id="passwordSettings">
 			<h1>Password Settings</h1>

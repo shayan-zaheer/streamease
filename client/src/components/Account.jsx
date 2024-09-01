@@ -1,12 +1,11 @@
 function Account(){
-
     async function handleSubmit(e){
         e.preventDefault();
         const formData = new FormData(e.target);
         const formObject = Object.fromEntries(formData.entries());
 
         try{
-            const result = await axios.patch("http://localhost:8000/users/update-profile", formObject, {
+            const result = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}users/update-profile`, formObject, {
                 withCredentials: true
             });
             console.log(result);
