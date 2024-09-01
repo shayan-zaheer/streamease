@@ -354,10 +354,6 @@ section.first > div :nth-child(2){
     text-decoration: underline;
 }
 
-.search-box {
-    position: relative;
-}
-
 .love-btn {
     position: absolute;
     top: 10px;
@@ -476,32 +472,30 @@ header {
 }
 
 .search-box {
-    max-width: 240px;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
     width: 100%;
-    display: flex;
-    align-items: center;
-    column-gap: 0.7rem;
-    padding: 8px 15px;
-    background-color: var(--container-color);
-    border-radius: 4rem;
-    margin-right: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
 }
 
-.search-box .bx {
-    font-size: 1.1rem;
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
 }
 
-.search-box .bx:hover {
-    color: var(--main-color);
-}
-
-#search-input {
-    width: 100%;
-    border: none;
-    outline: none;
-    color: var(--text-color);
-    background: transparent;
-    font-size: 0.99rem;
+.dropdown-item:hover {
+    background-color: #f0f0f0;
 }
 
 /* User */
@@ -1130,55 +1124,32 @@ header{
     color: var(--main-color);
 }
  
-.search-box{
-    max-width: 240px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    column-gap: 0.7rem;
-    padding: 8px 15px;
-    background-color: var(--container-color);
-    border-radius: 4rem;
-    margin-right: 1rem;
+.search-box {
+    position: relative;
+    display: inline-block;
 }
 
-.search-box .bx{
-    font-size: 1.1rem;
-
-}
-
-.search-box .bx:hover{
-    color: var(--main-color);
-}
-
-#search-input{
-    width: 100%;
-    border: none;
-    outline:none;
-    color: var(--text-color);
-    background: transparent;
-    font-size: 0.99rem;
-}
-
-#dropdown {
+.dropdown {
     position: absolute;
     top: 100%;
+    left: 0;
     background-color: white;
     border: 1px solid #ccc;
-    display: none;
-    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
 }
 
 .dropdown-item {
-    width: 100%;    
-    color: black;
-    padding: 8px 12px;
+    padding: 10px;
     cursor: pointer;
 }
 
 .dropdown-item:hover {
     background-color: #f0f0f0;
 }
+
 
 /* user */
 .user{
