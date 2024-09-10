@@ -17,3 +17,8 @@ StreamEase is a movie streaming platform where users can create and manage their
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
 - **Storage**: Azure Blob Storage
+
+# Demo of the Application
+
+https://github.com/user-attachments/assets/b028b0e0-adaa-4dcd-aab8-3224d98cd2fc
+
