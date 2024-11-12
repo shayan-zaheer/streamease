@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=shayan-zaheer_streamease&metric=alert_status)](https://sonarcloud.io/dashboard?id=shayan-zaheer_streamease)
+
 # StreamEase
 
 StreamEase is a movie streaming platform where users can create and manage their profiles, watch multiple movies available, and add them to favorites for later viewing.
