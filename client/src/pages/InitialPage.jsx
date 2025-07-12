@@ -12,7 +12,7 @@ function InitialPage() {
     const [showPass, setShowPass] = useState(true);
     const [email, setEmail] = useState("");
 
-	if (!user || !user.username) {
+	if (user.username) {
 		window.location.href = "/home-page";
 		return null;
 	}
