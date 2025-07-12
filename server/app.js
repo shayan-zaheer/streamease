@@ -9,7 +9,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['https://streamease-lemon.vercel.app', 'http://localhost:5173'],
     credentials: true
 }));
 
