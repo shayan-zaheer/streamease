@@ -6,14 +6,8 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { useSelector } from "react-redux";
 
 function HomePage(){
-    const user = useSelector((store) => store.user);
     const { fetching, fetchDone } = useSelector(store => store.status);
-
-    if (!user || !user.username) {
-        window.location.href = "/login";
-        return null;
-    }
-
+    
     return (
         <>          
             {fetching || !fetchDone ? (

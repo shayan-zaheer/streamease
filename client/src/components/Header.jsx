@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/userSlice';
-import SearchBox from './SearchBox'; // Import the SearchBox component
+import SearchBox from './SearchBox';
 
 function Header() {
     const [image, setImage] = useState("");
@@ -18,6 +18,12 @@ function Header() {
                     `${import.meta.env.VITE_BACKEND_URL}users/userdata`,
                     { withCredentials: true }
                 );
+
+                if (!response.data || !response.data.result || response.data.result.length === 0) {
+                    window.location.href = "/login";
+                    return;
+                }
+
                 const userData = response.data.result[0];
                 dispatch(userActions.userProfile(userData));
 
@@ -30,7 +36,7 @@ function Header() {
         }
 
         updateProfile();
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

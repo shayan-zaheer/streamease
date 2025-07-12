@@ -7,6 +7,7 @@ exports.getUser = async (request, response) => {
         const result = await executeQuery(SQL, [uid]);
 
         response.status(200).json({
+            status: "success",
             result
         })
     }
