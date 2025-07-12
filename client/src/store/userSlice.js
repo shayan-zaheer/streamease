@@ -1,11 +1,23 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+    id: null,
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    profile_image_url: ""
+};
 
 const userSlice = createSlice({
     name: "user",
-    initialState: {},
+    initialState,
     reducers: {
         userProfile: (state, action) => {
-            return action.payload;
+            return { ...state, ...action.payload };
+        },
+        clearUser: () => {
+            return initialState;
         }
     }
 });

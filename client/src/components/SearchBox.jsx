@@ -48,7 +48,7 @@ function SearchBox() {
         searchInputElement.addEventListener("input", handleSearchInput);
 
         const handleClickOutside = (event) => {
-            if (!dropdownRef.current.contains(event.target) && !searchInputRef.current.contains(event.target)) {
+            if (!dropdownRef?.current?.contains(event.target) && !searchInputRef?.current?.contains(event.target)) {
                 setDropdownVisible(false);
             }
         };

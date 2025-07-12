@@ -1,227 +1,194 @@
+const { S3Client } = require("@aws-sdk/client-s3");
 const executeQuery = require("../connection/execution");
-const {
-	BlobServiceClient,
-	StorageSharedKeyCredential,
-	generateBlobSASQueryParameters,
-	BlobSASPermissions,
-} = require("@azure/storage-blob");
 
-const accountName = process.env.AZURE_STORAGE_ACC;
-const accountKey = process.env.AZURE_STORAGE_KEY;
-const containerName = process.env.AZURE_BLOB_NAME;
+const accountId = process.env.S3_ACCOUNT_ID;
+const accessKeyId = process.env.S3_ACCESS_KEY_ID;
+const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
 
-const sharedKeyCredential = new StorageSharedKeyCredential(
-	accountName,
-	accountKey
-);
-
-const blobServiceClient = new BlobServiceClient(
-	`https://${accountName}.blob.core.windows.net`,
-	sharedKeyCredential
-);
+const s3 = new S3Client({
+    region: "auto",
+    endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+    credentials: {
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
+    },
+});
 
 exports.getAllMovies = async (request, response) => {
-    try{
-        const SQL = 'SELECT * FROM MOVIES WHERE SECTION = "General"';
+    try {
+        const SQL = "SELECT * FROM MOVIES WHERE SECTION = 'General'";
         const results = await executeQuery(SQL);
 
         response.status(200).json({
             status: "success",
             movies: results,
         });
-    }
-    catch(err){
+    } catch (err) {
         response.status(400).json({
             status: "fail",
-            message: err.message
+            message: err.message,
         });
     }
 };
 
 exports.getPopularMovies = async (request, response) => {
-	try{
-		const SQL = 'SELECT * FROM MOVIES WHERE SECTION = "Popular"';
-		const results = await executeQuery(SQL);
+    try {
+        const SQL = "SELECT * FROM MOVIES WHERE SECTION = 'Popular'";
+        const results = await executeQuery(SQL);
 
-		response.status(200).json({
-			status: "success",
-			movies: results,
-		});
-	} 
-    catch(err){
-		response.status(400).json({
-			status: "fail",
-			message: err.message,
-		});
-	}
+        response.status(200).json({
+            status: "success",
+            movies: results,
+        });
+    } catch (err) {
+        response.status(400).json({
+            status: "fail",
+            message: err.message,
+        });
+    }
 };
 
+
 exports.getMovieData = async (request, response) => {
-    try{
-        const {movieId} = request.params;
+    try {
+        const { movieId } = request.params;
         const SQL = "SELECT * FROM MOVIES WHERE ID = ?";
         const result = await executeQuery(SQL, [movieId]);
 
         response.status(200).json({
             status: "success",
-            result
-        })
-    }
-    catch(err){
+            result,
+        });
+    } catch (err) {
         response.status(500).json({
             status: "fail",
-            message: err.message
-        })
+            message: err.message,
+        });
     }
-}
+};
 
 exports.getMovieByID = async (request, response) => {
-	try{
-		const id = request.params.id;
+    try {
+        const { id } = request.params;
 
-		if (!id) {
-			return response.status(400).json({
-				status: "fail",
-				message: "ID not provided!",
-			});
-		}
+        if (!id) {
+            return response.status(400).json({
+                status: "fail",
+                message: "ID not provided!",
+            });
+        }
 
-		const SQL = "SELECT * FROM MOVIES WHERE ID = ?";
-		const results = await executeQuery(SQL, [id]);
+        const SQL = "SELECT * FROM MOVIES WHERE ID = ?";
+        const results = await executeQuery(SQL, [id]);
 
-		if(results.length === 0) {
-			return response.status(404).json({
-				status: "fail",
-				message: "Movie not found!",
-			});
-		}
+        if (results.length === 0) {
+            return response.status(404).json({
+                status: "fail",
+                message: "Movie not found!",
+            });
+        }
 
-		const movieTitle = results[0].title.replace(/\s+/g, "").toLowerCase() + ".mkv" || ".mp4";
-		const containerClient = blobServiceClient.getContainerClient(containerName);
-		const blobClient = containerClient.getBlobClient(movieTitle);
+        const movie = results[0];
 
-		const expiryDate = new Date();
-		expiryDate.setMinutes(expiryDate.getMinutes() + 200);
+        const fileTitle = movie.title.replace(/\s+/g, "").toLowerCase();
+        movie.url = `https://${accountId}.r2.cloudflarestorage.com/movies/${fileTitle}/master.m3u8`;
 
-		const sasToken = generateBlobSASQueryParameters(
-			{
-				containerName,
-				blobName: movieTitle,
-				permissions: BlobSASPermissions.parse("r"),
-				startsOn: new Date(),
-				expiresOn: expiryDate,
-				protocol: "https",
-				version: "2020-08-04",
-			},
-			sharedKeyCredential
-		).toString();
-
-
-
-		const videoUrl = `${blobClient.url}?${sasToken}`;
-		results[0].url = videoUrl;
-
-		response.status(200).json({
-			status: "success",
-			movie: results[0],
-		});
-	} 
-    catch(err){
-		response.status(500).json({
-			status: "fail",
-			message: err.message,
-		});
-	}
+        return response.status(200).json({
+            status: "success",
+            movie,
+        });
+    } catch (err) {
+        return response.status(500).json({
+            status: "fail",
+            message: err.message,
+        });
+    }
 };
 
 exports.searchMovies = async (request, response) => {
     const query = request.query.q;
-    if(!query){
+    if (!query) {
         return response.status(400).json({
             status: "fail",
-            message: "No query parameters!"
+            message: "No query parameters!",
         });
     }
-    try{
+    try {
         const SQL = "SELECT * FROM MOVIES WHERE title LIKE ?";
         const results = await executeQuery(SQL, [`${query}%`]);
 
         response.status(200).json({
             status: "success",
-            movies: results
+            movies: results,
         });
-    }
-    catch(err){
+    } catch (err) {
         response.status(500).json({
             status: "error",
-            message: err.message
+            message: err.message,
         });
     }
 };
 
 exports.addFavorite = async (request, response) => {
-    try{
+    try {
         const movieId = +request.params.movieId;
         const userId = +request.cookies.uid;
 
         console.log("movie: ", movieId, "\nuser: ", userId);
-        const SQL = "INSERT INTO favorites (user_id, movie_id) VALUES (?, ?)";
+        const SQL = "INSERT INTO FAVORITES (user_id, movie_id) VALUES (?, ?)";
         const result = await executeQuery(SQL, [userId, movieId]);
 
         response.status(200).json({
             status: "success",
             user: userId,
-            favorite: movieId
+            favorite: movieId,
         });
-    }
-    catch(err){
-        if(err.code === "ER_DUP_ENTRY"){
+    } catch (err) {
+        if (err.code === "ER_DUP_ENTRY") {
             return response.status(409).json({
                 status: "fail",
-                message: "This movie already exists in the favorites page!"
+                message: "This movie already exists in the favorites page!",
             });
         }
         response.status(500).json({
             status: "fail",
-            message: err.message
-        })
+            message: err.message,
+        });
     }
 };
 
 exports.getFavorites = async (request, response) => {
-    try{
+    try {
         const uid = +request.cookies.uid;
-        const SQL = "SELECT movie_id FROM favorites WHERE user_id = ?";
+        const SQL = "SELECT movie_id FROM FAVORITES WHERE user_id = ?";
         const result = await executeQuery(SQL, [uid]);
 
         response.status(200).json({
             status: "success",
-            result
-        })
-    }
-    catch(err){
+            result,
+        });
+    } catch (err) {
         response.status(500).json({
             status: "fail",
-            message: err.message
-        })
+            message: err.message,
+        });
     }
 };
 
 exports.removeFavorite = async (request, response) => {
-    try{
-        const {movieId} = request.params;
+    try {
+        const { movieId } = request.params;
         const uid = request.cookies.uid;
-        const SQL = "DELETE FROM favorites WHERE user_id = ? AND movie_id = ?";
+        const SQL = "DELETE FROM FAVORITES WHERE user_id = ? AND movie_id = ?";
         const result = await executeQuery(SQL, [uid, movieId]);
 
         response.status(204).json({
-            status: "success"
-        })
-    }
-    catch(err){
+            status: "success",
+        });
+    } catch (err) {
         response.status(500).json({
             status: "fail",
-            message: err.message
-        })
+            message: err.message,
+        });
     }
-}
+};

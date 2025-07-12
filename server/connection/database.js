@@ -1,4 +1,5 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
+const fs = require("fs");
 
 const connection = mysql.createPool({
     connectionLimit: 10,
@@ -6,7 +7,10 @@ const connection = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    ssl: {
+        ca: fs.readFileSync(__dirname + "/ca.pem"),
+    },
 });
 
 module.exports = connection;

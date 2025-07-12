@@ -2,14 +2,20 @@ import { useState } from "react";
 import { IonIcon } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
 import { Link, Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import Footer from "../components/Footer";
-import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
 
 function InitialPage() {
-    const [active, setActive] = useState(false);
+	const user = useSelector((store) => store.user);
+
+	const [active, setActive] = useState(false);
     const [showPass, setShowPass] = useState(true);
     const [email, setEmail] = useState("");
+
+	if (!user || !user.username) {
+		window.location.href = "/home-page";
+		return null;
+	}
     
 	return (
         <>
@@ -34,7 +40,6 @@ function InitialPage() {
 					</div>
 				</div>
 			</div>
-        <ToastContainer />
 			<div className="seperation"></div>
 
 			<section className="first">

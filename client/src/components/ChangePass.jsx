@@ -1,3 +1,6 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+
 function ChangePass() {
     async function handleSubmit(e){
         e.preventDefault();
@@ -8,8 +11,8 @@ function ChangePass() {
             const result = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}auth/update-password`, formObject, {
                 withCredentials: true
             });
-            console.log(result);
-        }
+			toast.success("Password updated successfully!");
+		}
         catch(err){
             
             console.error(err);
@@ -19,7 +22,7 @@ function ChangePass() {
 	return (
 		<div className="main-content" id="passwordSettings">
 			<h1>Password Settings</h1>
-			<form className="profile-form">
+			<form onSubmit={handleSubmit} className="profile-form">
 				<div className="form-group">
 					<label htmlFor="oldPassword">Old password</label>
 					<input

@@ -2,12 +2,13 @@ const jwt = require("jsonwebtoken");
 const util = require("util");
 const upload = require("../utils/multer");
 const multer = require("multer");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const executeQuery = require("../connection/execution");
 const sendEmail = require("../utils/email");
+const redisClient = require("../utils/redis");
 
 const compareHashPW = async (password, passwordDB) => {
-	return await bcrypt.compare(password, passwordDB);
+    return await bcrypt.compare(password, passwordDB);
 };
 
 const signToken = (email) => {
@@ -18,44 +19,52 @@ const signToken = (email) => {
 
 exports.signup = async (request, response) => {
     try {
-        upload.single('profileImage')(request, response, async err => {
+        upload.single("profileImage")(request, response, async (err) => {
             if (err instanceof multer.MulterError) {
                 return response.status(400).json({
-                    status: 'fail',
-                    message: 'Error uploading file',
-                    error: err.message
+                    status: "fail",
+                    message: "Error uploading file",
+                    error: err.message,
                 });
             } else if (err) {
                 return response.status(400).json({
-                    status: 'fail',
-                    message: 'Error uploading file',
-                    error: err.message
+                    status: "fail",
+                    message: "Error uploading file",
+                    error: err.message,
                 });
             }
 
-            const { firstname, lastname, username, email, password } = request.body;
+            const { firstname, lastname, username, email, password } =
+                request.body;
             const hashedPassword = await bcrypt.hash(password, 10);
-            
+
             const profileImageUrl = request.file ? request.file.path : null;
 
             const SQL =
                 "INSERT INTO USERS(first_name, last_name, username, email, password, profile_image_url, registration_date) VALUES (?, ?, ?, ?, ?, ?, CURDATE())";
-            await executeQuery(SQL, [firstname, lastname, username, email, hashedPassword, profileImageUrl]);
+            await executeQuery(SQL, [
+                firstname,
+                lastname,
+                username,
+                email,
+                hashedPassword,
+                profileImageUrl,
+            ]);
 
             response.status(201).json({
-                status: 'success',
-                message: 'User registered successfully',
+                status: "success",
+                message: "User registered successfully",
                 data: {
                     username,
-                    profileImageUrl
-                }
+                    profileImageUrl,
+                },
             });
         });
     } catch (err) {
         response.status(500).json({
-            status: 'fail',
-            message: 'Failed to register user',
-            error: err.message
+            status: "fail",
+            message: "Failed to register user",
+            error: err.message,
         });
     }
 };
@@ -193,29 +202,40 @@ exports.logout = async (request, response) => {
     }
 };
 
+async function storeOTP(userId, otp) {
+    await redisClient.set(`otp:${userId}`, otp, { EX: 300 });
+}
+
+async function verifyOTP(userId, enteredOTP) {
+    const storedOTP = await redisClient.get(`otp:${userId}`);
+    if (storedOTP === enteredOTP) {
+        await redisClient.del(`otp:${userId}`);
+        return true;
+    }
+    return false;
+}
+
 exports.forgotPassword = async (request, response) => {
     const { email } = request.body;
     const SQL = "SELECT * FROM USERS WHERE email = ?";
-    
+
     try {
         const [user] = await executeQuery(SQL, [email]);
-        
+
         if (!user) {
             return response.status(404).json({
                 status: "fail",
-                message: "User with the given email not found!"
+                message: "User with the given email not found!",
             });
         }
 
         const OTP = Math.floor(100000 + Math.random() * 900000).toString();
 
+        await storeOTP(user?.user_id, OTP);
         await sendEmail({
             recipient_email: email,
-            OTP
+            OTP,
         });
-
-        const updateSQL = "UPDATE USERS SET otp = ? WHERE email = ?";
-        await executeQuery(updateSQL, [OTP, email]);
 
         response.status(200).json({
             status: "success",
@@ -224,22 +244,19 @@ exports.forgotPassword = async (request, response) => {
     } catch (err) {
         response.status(500).json({
             status: "fail",
-            message: err.message
+            message: err.message,
         });
     }
 };
 
-
 exports.updatePassword = async (request, response) => {
     try {
-        console.log("REQUEST BODY:\n", request.body);
-        const { oldPassword: oldPw, newPassword: newPw, confirmPassword: confirmPw } = request.body;
+        const {
+            oldPassword: oldPw,
+            newPassword: newPw,
+            confirmPassword: confirmPw,
+        } = request.body;
         const userId = request.cookies.uid;
-
-        console.log("OldPw:", oldPw, "\nNewPw:", newPw, "\nConfirmPw:", confirmPw)
-        console.log(request.body);  
-
-        console.log(userId);
 
         const selectSQL = "SELECT password FROM USERS WHERE user_id = ?";
         const [user] = await executeQuery(selectSQL, [userId]);
@@ -247,7 +264,7 @@ exports.updatePassword = async (request, response) => {
         if (!user) {
             return response.status(400).json({
                 status: "fail",
-                message: "User not found."
+                message: "User not found.",
             });
         }
 
@@ -257,60 +274,68 @@ exports.updatePassword = async (request, response) => {
         if (result) {
             if (newPw === confirmPw) {
                 const hashedPassword = await bcrypt.hash(newPw, 10);
-                const updateSQL = "UPDATE USERS SET password = ? WHERE user_id = ?";
+                const updateSQL =
+                    "UPDATE USERS SET password = ? WHERE user_id = ?";
                 await executeQuery(updateSQL, [hashedPassword, userId]);
 
                 return response.status(200).json({
                     status: "success",
-                    message: "Password updated successfully!"
+                    message: "Password updated successfully!",
                 });
             } else {
                 return response.status(400).json({
                     status: "fail",
-                    message: "New Password and Confirm Password are not the same!"
+                    message:
+                        "New Password and Confirm Password are not the same!",
                 });
             }
         } else {
             return response.status(400).json({
                 status: "fail",
-                message: "Old Password is not correct. Try again!"
+                message: "Old Password is not correct. Try again!",
             });
         }
     } catch (err) {
         return response.status(500).json({
             status: "fail",
-            message: err.message
+            message: err.message,
         });
     }
 };
 
 exports.resetPassword = async (request, response) => {
     try {
-        const { email, otp, newPassword, confirmPassword} = request.body;
+        const { email, otp, newPassword, confirmPassword } = request.body;
 
-        console.log(request.body);
-        
-        const SQL = "SELECT otp FROM USERS WHERE email = ?";
-        const [{ otp: storedOtp }] = await executeQuery(SQL, [email]);
+        const SQL = "SELECT * FROM USERS WHERE email = ?";
 
-        console.log("DB OTP:\n", storedOtp)
+        const [user] = await executeQuery(SQL, [email]);
 
-        if (otp == storedOtp){
-            if(newPassword == confirmPassword){
+        if (!user) {
+            return response.status(404).json({
+                status: "fail",
+                message: "User with the given email not found!",
+            });
+        }
+
+        const result = await verifyOTP(user?.user_id, otp);
+
+        if (result) {
+            if (newPassword == confirmPassword) {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
-                const updateSQL = "UPDATE USERS SET password = ?, otp = NULL WHERE email = ?";
+                const updateSQL =
+                    "UPDATE USERS SET password = ? WHERE email = ?";
                 await executeQuery(updateSQL, [hashedPassword, email]);
 
                 response.status(200).json({
                     status: "success",
                     message: "Password updated successfully",
                 });
-            }
-            else{
+            } else {
                 return response.status(400).json({
                     status: "fail",
-                    message: "New password and Old password are not the same!"
-                })
+                    message: "New password and Old password are not the same!",
+                });
             }
         } else {
             response.status(400).json({
@@ -322,15 +347,7 @@ exports.resetPassword = async (request, response) => {
         console.log(err);
         response.status(500).json({
             status: "fail",
-            message: err.message
+            message: err.message,
         });
     }
 };
-
-
-
-// const testToken = request.headers.authorization;
-// let token;
-// if(testToken && testToken.startsWith("Bearer")){
-//     token = testToken.split(" ")[1];
-// }
