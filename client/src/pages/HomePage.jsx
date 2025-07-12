@@ -4,7 +4,6 @@ import GeneralMovies from "../components/GeneralMovies";
 import FetchMovies from "../components/FetchMovies";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
 
 function HomePage(){
     const { fetching, fetchDone } = useSelector(store => store.status);
@@ -16,10 +15,8 @@ function HomePage(){
             ) : (
                 <>
                     <Hero />
-                    <ToastContainer />
                     <PopularMovies />
                     <GeneralMovies />
-
                 </>
             )}
             <FetchMovies />
