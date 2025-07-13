@@ -1,7 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
-import store from "../../store/index.js";
-import { userActions } from "../../store/userSlice.js";
+import store from "../store/index.js";
+import { userActions } from "../store/userSlice.js";
 
 export const loginAction = async (res) => {
 	const formData = await res.request.formData();
