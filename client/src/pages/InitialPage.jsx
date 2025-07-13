@@ -1,169 +1,223 @@
 import { useState } from "react";
-import { IonIcon } from '@ionic/react';
-import { closeOutline, playOutline, downloadOutline, tvOutline, phonePortraitOutline } from 'ionicons/icons';
+import { IonIcon } from "@ionic/react";
+import { closeOutline, playOutline } from "ionicons/icons";
 import { Link, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 
 function InitialPage() {
-	const [active, setActive] = useState(false);
+    const [active, setActive] = useState(false);
     const [showPass, setShowPass] = useState(true);
     const [email, setEmail] = useState("");
-    
-	return (
-		<>
-			{/* Hero Section */}
-			<div className="hero-section">
-				{/* Background Image */}
-				<div 
-					className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-					style={{ backgroundImage: 'url("/images/PK-en-20240311-popsignuptwoweeks-perspective_alpha_website_medium.jpg")' }}
-				>
-					<div className="hero-overlay"></div>
-				</div>
 
-				{/* Header */}
-				<header className="relative z-10 px-6 py-4">
-					<div className="container mx-auto flex items-center justify-between">
-						<Link to="#" className="footer-title">
-							Stream<span className="text-white">Ease</span>
-						</Link>
-						<div className="nav-actions">
-							<Link 
-								to="/login" 
-								onClick={() => setActive(true)} 
-								className="btn-primary text-sm md:text-base px-4 py-2"
-							>
-								Sign In
-							</Link>
-						</div>
-					</div>
-				</header>
+    return (
+        <>
+            <div className="hero-section">
+                <div
+                    className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                        backgroundImage:
+                            'url("/images/PK-en-20240311-popsignuptwoweeks-perspective_alpha_website_medium.jpg")',
+                    }}
+                >
+                    <div className="hero-overlay"></div>
+                </div>
 
-				{/* Hero Content */}
-				<div className="hero-content">
-					<div className="text-center max-w-4xl mx-auto">
-						<h1 className="hero-title">
-							Unlimited movies, TV shows, and more
-						</h1>
-						<p className="hero-subtitle">
-							Watch anywhere. Cancel anytime.
-						</p>
-						<p className="text-responsive-lg text-white mb-8 max-w-2xl mx-auto">
-							Ready to watch? Enter your email to create or restart your membership.
-						</p>
-						<div className="hero-cta">
-							<Link 
-								to="/login" 
-								onClick={() => setActive(true)} 
-								className="btn-primary"
-							>
-								<IonIcon icon={playOutline} className="text-2xl" />
-								Get Started
-							</Link>
-						</div>
-					</div>
-				</div>
-			</div>
+                <header className="relative z-10 px-6 py-4">
+                    <div className="container mx-auto flex items-center justify-between">
+                        <Link to="#" className="footer-title">
+                            Stream<span className="text-white">Ease</span>
+                        </Link>
+                        <div className="nav-actions">
+                            <Link
+                                to="/login"
+                                onClick={() => setActive(true)}
+                                className="btn-primary text-sm md:text-base px-4 py-2"
+                            >
+                                Sign In
+                            </Link>
+                        </div>
+                    </div>
+                </header>
 
-			{/* Modal */}
-			<div className={`modal-overlay ${active ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-				<div className="modal-container">
-					<button 
-						className="modal-close"
-						onClick={() => setActive(false)}
-					>
-						<IonIcon icon={closeOutline} />
-					</button>
-					<Outlet context={[showPass, setShowPass, email, setEmail]} />
-				</div>
-			</div>
+                <div className="hero-content">
+                    <div className="text-center max-w-4xl mx-auto">
+                        <h1 className="hero-title">
+                            Unlimited movies, TV shows, and more
+                        </h1>
+                        <p className="hero-subtitle">
+                            Watch anywhere. Cancel anytime.
+                        </p>
+                        <p className="text-responsive-lg text-white mb-8 max-w-2xl mx-auto">
+                            Ready to watch? Enter your email to create or
+                            restart your membership.
+                        </p>
+                        <div className="hero-cta">
+                            <Link
+                                to="/login"
+                                onClick={() => setActive(true)}
+                                className="btn-primary"
+                            >
+                                <IonIcon
+                                    icon={playOutline}
+                                    className="text-2xl"
+                                />
+                                Get Started
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			{/* Features Section */}
-			<section className="feature-section">
-				<div className="container mx-auto px-6">
-					<div className="feature-grid">
-						<div className="text-center lg:text-left">
-							<h2 className="feature-title">
-								Enjoy on your TV
-							</h2>
-							<p className="feature-description">
-								Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, 
-								Blu-ray players, and more.
-							</p>
-						</div>
-						<div className="relative">
-							<div className="relative">
-								<img src="/images/tv.png" alt="TV" className="w-full h-auto" />
-								<video 
-									className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-auto z-10" 
-									autoPlay 
-									loop 
-									muted
-								>
-									<source src="/videos/video1.mp4" type="video/mp4" />
-								</video>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+            <div
+                className={`modal-overlay ${
+                    active ? "opacity-100 visible" : "opacity-0 invisible"
+                }`}
+            >
+                <div className="modal-container">
+                    <button
+                        className="modal-close"
+                        onClick={() => setActive(false)}
+                    >
+                        <IonIcon icon={closeOutline} />
+                    </button>
+                    <Outlet
+                        context={[showPass, setShowPass, email, setEmail]}
+                    />
+                </div>
+            </div>
 
-			{/* Separator */}
-			<div className="h-2 bg-card"></div>
+            <section className="features-showcase">
+                <div className="container mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                            Why Choose StreamEase?
+                        </h2>
+                        <p className="text-xl text-purple-300 max-w-2xl mx-auto">
+                            Your complete movie streaming platform with
+                            everything you need for the perfect viewing
+                            experience
+                        </p>
+                    </div>
 
-			{/* Download Feature */}
-			<section className="feature-section">
-				<div className="container mx-auto px-6">
-					<div className="feature-grid">
-						<div className="order-2 lg:order-1">
-							<img src="/images/mobile.png" alt="Mobile Device" className="w-full h-auto" />
-						</div>
-						<div className="text-center lg:text-left order-1 lg:order-2">
-							<h2 className="feature-title">
-								Download your shows to watch offline
-							</h2>
-							<p className="feature-description">
-								Save your favorites easily and always have something to watch.
-							</p>
-							<div className="feature-icons">
-								<IonIcon icon={downloadOutline} />
-								<IonIcon icon={phonePortraitOutline} />
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+                    <div className="features-grid">
+                        <div className="feature-card group">
+                            <div className="feature-visual">
+                                <div className="gradient-orb purple"></div>
+                                <div className="feature-image">
+                                    <img
+                                        src="/images/tv.png"
+                                        alt="Browse Movies"
+                                        className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="play-overlay">
+                                        <div className="play-btn">
+                                            <IonIcon icon={playOutline} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="feature-content">
+                                <h3 className="feature-heading">
+                                    Browse & Discover
+                                </h3>
+                                <p className="feature-text">
+                                    Explore our vast movie library with powerful
+                                    search functionality to find exactly what
+                                    you want to watch
+                                </p>
+                                <div className="feature-tags">
+                                    <span className="tag">Smart Search</span>
+                                    <span className="tag">Movie Library</span>
+                                </div>
+                            </div>
+                        </div>
 
-			{/* Separator */}
-			<div className="h-2 bg-card"></div>
+                        <div className="feature-card group">
+                            <div className="feature-visual">
+                                <div className="gradient-orb pink"></div>
+                                <div className="feature-image">
+                                    <img
+                                        src="/images/mobile.png"
+                                        alt="Stream Movies"
+                                        className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="device-glow"></div>
+                                </div>
+                            </div>
+                            <div className="feature-content">
+                                <h3 className="feature-heading">
+                                    Stream Instantly
+                                </h3>
+                                <p className="feature-text">
+                                    Watch movies online with our built-in HLS
+                                    video player. Responsive streaming on any
+                                    device, anywhere
+                                </p>
+                                <div className="feature-tags">
+                                    <span className="tag">HLS Streaming</span>
+                                    <span className="tag">Any Device</span>
+                                </div>
+                            </div>
+                        </div>
 
-			{/* Watch Everywhere */}
-			<section className="feature-section">
-				<div className="container mx-auto px-6">
-					<div className="feature-grid">
-						<div className="text-center lg:text-left">
-							<h2 className="feature-title">
-								Watch everywhere
-							</h2>
-							<p className="feature-description">
-								Stream unlimited movies and TV shows on your phone, tablet, 
-								laptop, and TV without paying more.
-							</p>
-							<div className="feature-icons">
-								<IonIcon icon={tvOutline} />
-								<IonIcon icon={phonePortraitOutline} />
-							</div>
-						</div>
-						<div className="relative">
-							<img src="/images/kids.png" alt="Multiple Devices" className="w-full h-auto" />
-						</div>
-					</div>
-				</div>
-			</section>
+                        <div className="feature-card group">
+                            <div className="feature-visual">
+                                <div className="gradient-orb blue"></div>
+                                <div className="feature-image">
+                                    <img
+                                        src="/images/kids.png"
+                                        alt="Personal Library"
+                                        className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="ai-particles"></div>
+                                </div>
+                            </div>
+                            <div className="feature-content">
+                                <h3 className="feature-heading">
+                                    Personal Library
+                                </h3>
+                                <p className="feature-text">
+                                    Create your account, manage your profile,
+                                    and build your personal favorites collection
+                                    for easy access
+                                </p>
+                                <div className="feature-tags">
+                                    <span className="tag">Favorites</span>
+                                    <span className="tag">
+                                        Profile Management
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-			<Footer />
-		</>
-	);
+                    <div className="stats-section">
+                        <div className="stats-grid">
+                            <div className="stat-item">
+                                <div className="stat-number">1000+</div>
+                                <div className="stat-label">
+                                    Movies Available
+                                </div>
+                            </div>
+                            <div className="stat-item">
+                                <div className="stat-number">100%</div>
+                                <div className="stat-label">Free Streaming</div>
+                            </div>
+                            <div className="stat-item">
+                                <div className="stat-number">24/7</div>
+                                <div className="stat-label">Access</div>
+                            </div>
+                            <div className="stat-item">
+                                <div className="stat-number">HD</div>
+                                <div className="stat-label">Quality</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <Footer />
+        </>
+    );
 }
 
 export default InitialPage;

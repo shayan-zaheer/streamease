@@ -49,12 +49,10 @@ function Header() {
                                 Stream<span className="text-white">Ease</span>
                             </Link>
 
-                            {/* Search Box - Hidden on mobile */}
                             <div className="hidden md:flex flex-1 max-w-md mx-8">
                                 <SearchBox />
                             </div>
 
-                            {/* User Profile */}
                             <Link to="/profile" className="flex items-center">
                                 <img 
                                     src={image} 
@@ -64,7 +62,6 @@ function Header() {
                             </Link>
                         </div>
 
-                        {/* Navigation Bar - Mobile responsive */}
                         <nav className="flex justify-center mt-4 pt-4 border-t border-purple-800/30">
                             <div className="flex items-center space-x-6 md:space-x-8">
                                 <Link to="/home-page" className="nav-link">
@@ -90,7 +87,6 @@ function Header() {
                             </div>
                         </nav>
 
-                        {/* Mobile Search Box */}
                         <div className="md:hidden mt-4">
                             <SearchBox />
                         </div>

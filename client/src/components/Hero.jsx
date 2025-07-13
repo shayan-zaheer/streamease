@@ -14,7 +14,7 @@ function Hero() {
     const randomIndex = Math.floor(Math.random() * generalMovies.length);
 
     return (
-        <section className="hero-section mt-20 mx-6 rounded-lg" id="home">
+        <section className="hero-section mt-4 mx-6 rounded-lg" id="home">
             {/* Background Image */}
             <img 
                 src={generalMovies[randomIndex].h_poster} 
