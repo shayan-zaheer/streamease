@@ -45,7 +45,9 @@ function SearchBox() {
         }, 300);
 
         const searchInputElement = searchInputRef.current;
-        searchInputElement.addEventListener("input", handleSearchInput);
+        if (searchInputElement) {
+            searchInputElement.addEventListener("input", handleSearchInput);
+        }
 
         const handleClickOutside = (event) => {
             if (!dropdownRef?.current?.contains(event.target) && !searchInputRef?.current?.contains(event.target)) {
@@ -56,13 +58,15 @@ function SearchBox() {
         document.addEventListener("click", handleClickOutside);
 
         return () => {
-            searchInputElement.removeEventListener("input", handleSearchInput);
+            if (searchInputElement) {
+                searchInputElement.removeEventListener("input", handleSearchInput);
+            }
             document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
     return (
-        <>
+        <div className="search-container">
             <input
                 type="text"
                 id="search-input"
@@ -70,27 +74,33 @@ function SearchBox() {
                 ref={searchInputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="search-input"
+                className="input-netflix"
             />
             {isDropdownVisible && (
-                <div id="dropdown" className="dropdown" ref={dropdownRef}>
+                <div 
+                    id="dropdown" 
+                    className="search-dropdown" 
+                    ref={dropdownRef}
+                >
                     {movies.length > 0 ? (
                         movies.map((movie) => (
                             <Link
                                 key={movie.id}
                                 to={`/play?id=${movie.id}`}
-                                className="dropdown-item"
+                                className="search-item"
                                 onClick={() => setDropdownVisible(false)}
                             >
                                 {movie.title}
                             </Link>
                         ))
                     ) : (
-                        <div className="dropdown-item">No results found</div>
+                        <div className="px-4 py-3 text-gray-500">
+                            No results found
+                        </div>
                     )}
                 </div>
             )}
-        </>
+        </div>
     );
 }
 

@@ -1,12 +1,9 @@
 function LoadingSpinner() {
 	return (
-		<div className="d-flex justify-content-center spinner">
-			<div
-				className="spinner-border"
-				role="status"
-				style={{ width: "5rem", height: "5rem" }}
-			>
-				<span className="visually-hidden">Loading...</span>
+		<div className="spinner-netflix">
+			<div className="relative">
+				<div className="spinner-ring"></div>
+				<div className="spinner-ping"></div>
 			</div>
 		</div>
 	);

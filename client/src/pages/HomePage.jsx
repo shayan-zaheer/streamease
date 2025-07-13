@@ -9,18 +9,20 @@ function HomePage(){
     const { fetching, fetchDone } = useSelector(store => store.status);
     
     return (
-        <>          
+        <div className="profile-container">         
             {fetching || !fetchDone ? (
                 <LoadingSpinner />
             ) : (
-                <>
+                <div className="space-y-8">
                     <Hero />
-                    <PopularMovies />
-                    <GeneralMovies />
-                </>
+                    <div className="px-6">
+                        <PopularMovies />
+                        <GeneralMovies />
+                    </div>
+                </div>
             )}
             <FetchMovies />
-        </>
+        </div>
         
     )
 };

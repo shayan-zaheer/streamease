@@ -66,21 +66,46 @@ function MovieBox({ movie }) {
     };
 
     return (
-        <div className="movie-box">
-            <img src={movie.v_poster} alt={movie.title} className="movie-box-img" />
-            <div className="box-text">
-                <h2 className="movie-title">{movie.title}</h2>
-                <span className="movie-type">{movie.genre}</span>
-                <Link
-                    to={`/play?id=${movie.id}`}
-                    className="watch-btn play-btn"
-                    data-id={movie.id}
-                >
-                    <FontAwesomeIcon icon={faPlay} />
-                </Link>
-                <a onClick={() => handleLikeClick(movie.id, movie.title)} className="watch-btn heart-btn" data-id={movie.id}>
-                    <FontAwesomeIcon icon={faHeart} style={{ color: like ? 'red' : 'inherit', cursor: 'pointer' }} />
-                </a>
+        <div className="card-movie group">
+            {/* Movie Poster */}
+            <div className="relative aspect-[2/3] overflow-hidden">
+                <img 
+                    src={movie.v_poster} 
+                    alt={movie.title} 
+                    className="movie-poster" 
+                />
+                
+                {/* Overlay with buttons - appears on hover */}
+                <div className="movie-overlay">
+                    <Link
+                        to={`/play?id=${movie.id}`}
+                        className="btn-primary p-3 rounded-full text-white"
+                        data-id={movie.id}
+                    >
+                        <FontAwesomeIcon icon={faPlay} className="text-lg" />
+                    </Link>
+                    
+                    <button 
+                        onClick={() => handleLikeClick(movie.id, movie.title)} 
+                        className="btn-secondary p-3 rounded-full text-white" 
+                        data-id={movie.id}
+                    >
+                        <FontAwesomeIcon 
+                            icon={faHeart} 
+                            className={`text-lg ${like ? 'text-red-500' : 'text-white'}`} 
+                        />
+                    </button>
+                </div>
+            </div>
+
+            {/* Movie Info */}
+            <div className="movie-info">
+                <h3 className="movie-title">
+                    {movie.title}
+                </h3>
+                <span className="movie-genre">
+                    {movie.genre}
+                </span>
             </div>
         </div>
     );

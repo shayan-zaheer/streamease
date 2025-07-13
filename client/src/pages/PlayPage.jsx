@@ -39,19 +39,18 @@ function PlayPage() {
 	}, []);
 
 	return (
-                <>
-                <div className="play-container container">
-                    {movie && <MoviePlay key={movie.id} movie={movie} />}
-                </div>
-    
-                <div class="about-movie container">
-                    {movie && <MovieDescription key={movie.id} movie={movie}/>}
-                    <div id="cast">
-                        {movie && <MovieCast movie={movie} />}
-                    </div>
-                </div>
-            </>
-		
+		<div className="profile-container">
+			<div className="container mx-auto px-6 space-y-8">
+				{movie && <MoviePlay key={movie.id} movie={movie} />}
+				
+				<div className="space-y-8">
+					{movie && <MovieDescription key={movie.id} movie={movie}/>}
+					<div id="cast">
+						{movie && <MovieCast movie={movie} />}
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }
 

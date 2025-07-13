@@ -19,32 +19,51 @@ function ProfileSidebar({ page, setPage }) {
     const dispatch = useDispatch();
 
     return (
-        <div className="sidebar">
-            <div className="profile-pic">
-                <img src={profile_image_url} alt="Profile Picture" />
+        <div className="profile-card w-full lg:w-80">
+            <div className="text-center mb-6">
+                <img 
+                    src={profile_image_url} 
+                    alt="Profile Picture" 
+                    className="user-avatar w-24 h-24 mx-auto mb-4"
+                />
+                <h2 className="text-xl font-bold text-white mb-1">
+                    {`${first_name} ${last_name}`}
+                </h2>
+                <h3 className="text-purple-400 font-medium">
+                    @{username}
+                </h3>
             </div>
-            <div className="profile-name">
-                <h2>{`${first_name} ${last_name}`}</h2>
-                <h3>{username}</h3>
-            </div>
-            <ul>
-                <li className={page === "account" ? "active" : ""}>
-                    <a onClick={() => setPage("account")} id="accountLink">
-                        Account
-                    </a>
-                </li>
-                <li className={page === "password" ? "active" : ""}>
-                    <a onClick={() => setPage("password")} id="passwordLink">
-                        Password
-                    </a>
-                </li>
-            </ul>
-            <div className="logout">
-                <i className="bx bx-log-out"></i>
-                <span onClick={() => logout(navigate, dispatch)} className="logout-title">
-                    Logout
-                </span>
-            </div>
+            
+            <nav className="space-y-2 mb-8">
+                <button 
+                    onClick={() => setPage("account")} 
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                        page === "account" 
+                            ? "bg-purple-600 text-white" 
+                            : "text-gray-300 hover:bg-purple-900/50 hover:text-white"
+                    }`}
+                >
+                    Account Settings
+                </button>
+                <button 
+                    onClick={() => setPage("password")} 
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                        page === "password" 
+                            ? "bg-purple-600 text-white" 
+                            : "text-gray-300 hover:bg-purple-900/50 hover:text-white"
+                    }`}
+                >
+                    Change Password
+                </button>
+            </nav>
+            
+            <button 
+                onClick={() => logout(navigate, dispatch)} 
+                className="btn-outline w-full"
+            >
+                <i className="bx bx-log-out mr-2"></i>
+                Logout
+            </button>
         </div>
     );
 }

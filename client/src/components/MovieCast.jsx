@@ -33,24 +33,28 @@ function MovieCast({ movie }) {
 	}, []);
 
 	return (
-		<>
+		<div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
 			{castList.map((member) => {
 				if (member.profile_path == null) {
-					return;
+					return null;
 				}
 				return (
-                          <div className="cast-box">
-                              <img
-                                  src={`https://image.tmdb.org/t/p/original${member.profile_path}`}
-                                  className="cast-img"
-                              />
-                              <span className="cast-title">
-                                  {member.original_name}
-                              </span>
-                          </div>
+					<div key={member.id} className="card-netflix group text-center p-4">
+						<img
+							src={`https://image.tmdb.org/t/p/original${member.profile_path}`}
+							alt={member.original_name}
+							className="w-full h-32 object-cover rounded-lg mb-3"
+						/>
+						<span className="text-white font-medium text-sm">
+							{member.original_name}
+						</span>
+						<p className="text-gray-400 text-xs mt-1">
+							{member.character}
+						</p>
+					</div>
 				);
 			})}
-		</>
+		</div>
 	);
 }
 

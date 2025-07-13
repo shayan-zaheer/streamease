@@ -41,41 +41,58 @@ function Header() {
     return (
         <>
             {image && (
-                <header>
-                    <div className="nav container">
-                        <Link to="/home-page" className="logo">
-                            Stream<span>Ease</span>
-                        </Link>
+                <header className="nav-netflix">
+                    <div className="container mx-auto px-6 py-4">
+                        <div className="flex items-center justify-between">
+                            {/* Logo */}
+                            <Link to="/home-page" className="footer-title">
+                                Stream<span className="text-white">Ease</span>
+                            </Link>
 
-                        <div className="search-box">
-                            <SearchBox />
+                            {/* Search Box - Hidden on mobile */}
+                            <div className="hidden md:flex flex-1 max-w-md mx-8">
+                                <SearchBox />
+                            </div>
+
+                            {/* User Profile */}
+                            <Link to="/profile" className="flex items-center">
+                                <img 
+                                    src={image} 
+                                    className="user-avatar" 
+                                    alt="User Profile" 
+                                />
+                            </Link>
                         </div>
 
-                        <Link to="/profile" className="user">
-                            <img src={image} className="user-img" />
-                        </Link>
+                        {/* Navigation Bar - Mobile responsive */}
+                        <nav className="flex justify-center mt-4 pt-4 border-t border-purple-800/30">
+                            <div className="flex items-center space-x-6 md:space-x-8">
+                                <Link to="/home-page" className="nav-link">
+                                    <FontAwesomeIcon icon={faHome} className="nav-icon" />
+                                    <span className="text-xs font-medium">Home</span>
+                                </Link>
+                                <Link to="#popular" className="nav-link">
+                                    <FontAwesomeIcon icon={faFire} className="nav-icon" />
+                                    <span className="text-xs font-medium">Trending</span>
+                                </Link>
+                                <Link to="#movies" className="nav-link">
+                                    <FontAwesomeIcon icon={faCompass} className="nav-icon" />
+                                    <span className="text-xs font-medium">Explore</span>
+                                </Link>
+                                <Link to="/" className="nav-link">
+                                    <FontAwesomeIcon icon={faTv} className="nav-icon" />
+                                    <span className="text-xs font-medium">Movies</span>
+                                </Link>
+                                <Link to="/favorites" className="nav-link">
+                                    <FontAwesomeIcon icon={faHeart} className="nav-icon" />
+                                    <span className="text-xs font-medium">Favorite</span>
+                                </Link>
+                            </div>
+                        </nav>
 
-                        <div className="navbar">
-                            <Link to="/home-page" className="nav-link">
-                                <FontAwesomeIcon icon={faHome} className="bx bx-home" />
-                                <span className="nav-link-title">Home</span>
-                            </Link>
-                            <Link to="#popular" className="nav-link">
-                                <FontAwesomeIcon icon={faFire} className="bx bxs-hot" />
-                                <span className="nav-link-title">Trending</span>
-                            </Link>
-                            <Link to="#movies" className="nav-link">
-                                <FontAwesomeIcon icon={faCompass} className="bx bx-compass" />
-                                <span className="nav-link-title">Explore</span>
-                            </Link>
-                            <Link to="/" className="nav-link">
-                                <FontAwesomeIcon icon={faTv} className="bx bx-tv" />
-                                <span className="nav-link-title">Movies</span>
-                            </Link>
-                            <Link to="/favorites" className="nav-link">
-                                <FontAwesomeIcon icon={faHeart} className="bx bx-heart" />
-                                <span className="nav-link-title">Favorite</span>
-                            </Link>
+                        {/* Mobile Search Box */}
+                        <div className="md:hidden mt-4">
+                            <SearchBox />
                         </div>
                     </div>
                 </header>

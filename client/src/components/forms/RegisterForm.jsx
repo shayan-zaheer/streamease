@@ -8,32 +8,45 @@ function RegisterForm() {
     const [showPass, setShowPass] = useOutletContext();
 
 	return (
-		<div className="form-box register">
-			<h2>Registration</h2>
+		<div className="w-full">
+			<h2 className="text-responsive-2xl text-white text-center mb-6">Registration</h2>
 			<Form
 				action="#"
 				id="signupForm"
 				method="POST"
 				encType="multipart/form-data"
+				className="space-y-4"
 			>
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
                         <IonIcon icon={person} />
 					</span>
-					<input id="fnameInput" name="firstname" type="text" required />
-					<label htmlFor="firstname">First Name</label>
+					<input 
+						id="fnameInput" 
+						name="firstname" 
+						type="text" 
+						required 
+						className="input-netflix pl-10"
+						placeholder="First Name"
+					/>
 				</div>
 
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
                         <IonIcon icon={person} />
 					</span>
-					<input id="lnameInput" name="lastname" type="text" required />
-					<label htmlFor="lastname">Last Name</label>
+					<input 
+						id="lnameInput" 
+						name="lastname" 
+						type="text" 
+						required 
+						className="input-netflix pl-10"
+						placeholder="Last Name"
+					/>
 				</div>
 
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
                         <IonIcon icon={person} />
 					</span>
 					<input
@@ -41,28 +54,44 @@ function RegisterForm() {
 						name="username"
 						type="text"
 						required
+						className="input-netflix pl-10"
+						placeholder="Username"
 					/>
-					<label htmlFor="username">Username</label>
 				</div>
 
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
                         <IonIcon icon={mail} />
 					</span>
-					<input id="emailInput" name="email" type="email" required />
-					<label htmlFor="email">Email</label>
+					<input 
+						id="emailInput" 
+						name="email" 
+						type="email" 
+						required 
+						className="input-netflix pl-10"
+						placeholder="Email"
+					/>
 				</div>
 
-				<div className="input-box">
-					<span style={{cursor: "pointer"}} className="icon" onClick={() => setShowPass(!showPass)}>
+				<div className="relative">
+					<span 
+						className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer z-10 hover:text-purple-400 transition-colors duration-300" 
+						onClick={() => setShowPass(!showPass)}
+					>
                         {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
-					<input id="pInput" name="password" type={showPass ? "password" : "text"} required />
-					<label htmlFor="password">Password</label>
+					<input 
+						id="pInput" 
+						name="password" 
+						type={showPass ? "password" : "text"} 
+						required 
+						className="input-netflix pr-10"
+						placeholder="Password"
+					/>
 				</div>
 
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
                         <IonIcon icon={image} />
 					</span>
 					<input
@@ -70,24 +99,28 @@ function RegisterForm() {
 						name="profileImage"
 						type="file"
 						accept="image/*"
+						className="input-netflix pl-10"
 					/>
-					<label htmlFor="profileImage">Profile Image</label>
 				</div>
 
-				<div className="remember-forget">
-					<label>
-						<input type="checkbox" required />I agree to the terms
-						and conditions
+				<div className="flex items-center text-sm">
+					<label className="flex items-center text-gray-300">
+						<input 
+							type="checkbox" 
+							required 
+							className="mr-2 bg-purple-900/50 border-purple-500 rounded focus:ring-purple-500"
+						/>
+						I agree to the terms and conditions
 					</label>
 				</div>
 
-				<button type="submit" className="boto">
+				<button type="submit" className="btn-primary w-full">
 					Register
 				</button>
-				<div className="login-register">
+				<div className="text-center text-gray-300 mt-4">
 					<p>
-						Already have an account?
-						<Link to="/login" className="link">
+						Already have an account?{' '}
+						<Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
 							Login
 						</Link>
 					</p>

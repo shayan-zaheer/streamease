@@ -18,41 +18,63 @@ function MoviePlay({ movie }) {
 	}, [isOpen, movie.url]);
 
 	return (
-		<>
-			<img src={movie.h_poster} alt={movie.title} className="play-img" />
-			<div className="play-text">
-				<h2>{movie.title}</h2>
-				<div className="rating">
-					<FontAwesomeIcon icon={faStar} /> {movie.vote_average}
+		<div className="relative rounded-xl overflow-hidden">
+			<img 
+				src={movie.h_poster} 
+				alt={movie.title} 
+				className="w-full h-64 md:h-96 object-cover" 
+			/>
+			
+			{/* Overlay with movie info */}
+			<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+			
+			<div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+				<h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+					{movie.title}
+				</h2>
+				
+				<div className="flex items-center gap-4 mb-4">
+					<div className="flex items-center gap-2 text-yellow-400">
+						<FontAwesomeIcon icon={faStar} />
+						<span className="text-white font-semibold">{movie.vote_average}</span>
+					</div>
+					<span className="movie-genre">
+						{movie.genre}
+					</span>
 				</div>
-				<div className="tags">
-					<span>{movie.genre}</span>
-				</div>
+				
+				<button 
+					onClick={() => setIsOpen(true)} 
+					className="btn-primary"
+				>
+					<FontAwesomeIcon icon={faPlay} className="mr-2" />
+					Play Movie
+				</button>
 			</div>
-			<i onClick={() => setIsOpen(true)} className="bx bx-right-arrow play-movie">
-				<FontAwesomeIcon icon={faPlay} />
-			</i>
 
 			{isOpen && (
-				<div className="video-container">
-					<div className="video-box">
+				<div className="modal-overlay">
+					<div className="relative bg-black rounded-xl p-4 w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden">
 						<video
 							ref={videoRef}
 							controls
 							preload="auto"
 							controlsList="nodownload"
-							style={{ width: "100%" }}
+							className="w-full h-auto rounded-lg"
 						>
 							<source src={movie.url} type="application/x-mpegURL" />
 							Your browser does not support HLS streaming.
 						</video>
-						<i onClick={() => setIsOpen(false)} className="bx bx-x close-video">
-							<FontAwesomeIcon icon={faClose} style={{ cursor: "pointer" }} />
-						</i>
+						<button 
+							onClick={() => setIsOpen(false)} 
+							className="modal-close"
+						>
+							<FontAwesomeIcon icon={faClose} />
+						</button>
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 

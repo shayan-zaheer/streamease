@@ -33,23 +33,34 @@ function OTPForm() {
     };
 
 	return (
-		<div className="form-box otp-form">
-			<h2>Enter OTP</h2>  
+		<div className="w-full">
+			<h2 className="text-responsive-2xl text-white text-center mb-6">Enter OTP</h2>  
 			<Form
 				onSubmit={handleSubmit}
 				id="otpForm"
 				method="POST"
 				encType="multipart/form-data"
+				className="space-y-4"
 			>
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
 						<IonIcon icon={mail} />
 					</span>
-					<input id="otpInput" name="otp" type="text" required />
-					<label htmlFor="otp">OTP</label>
+					<input 
+						id="otpInput" 
+						name="otp" 
+						type="text" 
+						required 
+						className="input-netflix pl-10"
+						placeholder="Enter OTP"
+					/>
 				</div>
-				<div className="input-box">
-                <span style={{cursor: "pointer"}} className="icon" onClick={() => setShowPass(!showPass)}>
+				
+				<div className="relative">
+					<span 
+						className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer z-10 hover:text-purple-400 transition-colors duration-300" 
+						onClick={() => setShowPass(!showPass)}
+					>
                         {showPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
 					<input
@@ -57,11 +68,16 @@ function OTPForm() {
 						name="newPassword"
 						type={showPass ? "password" : "text"}
 						required
+						className="input-netflix pr-10"
+						placeholder="New Password"
 					/>
-					<label htmlFor="newPassword">New Password</label>
 				</div>
-				<div className="input-box">
-                <span style={{cursor: "pointer"}} className="icon" onClick={() => setConfirmPass(!confirmPass)}>
+				
+				<div className="relative">
+					<span 
+						className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer z-10 hover:text-purple-400 transition-colors duration-300" 
+						onClick={() => setConfirmPass(!confirmPass)}
+					>
                         {confirmPass ? <IonIcon icon={eyeOff} /> :  <IonIcon icon={eye} />}
 					</span>
 					<input
@@ -69,16 +85,19 @@ function OTPForm() {
 						name="confirmPassword"
 						type={confirmPass ? "password" : "text"}
 						required
+						className="input-netflix pr-10"
+						placeholder="Confirm Password"
 					/>
-					<label htmlFor="confirmPassword">Confirm Password</label>
 				</div>
-				<button type="submit" className="boto">
+				
+				<button type="submit" className="btn-primary w-full">
 					Submit
 				</button>
-				<div className="login-register">
+				
+				<div className="text-center text-gray-300">
 					<p>
 						Remembered?{" "}
-						<Link to="/login" className="link">
+						<Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
 							Login
 						</Link>
 					</p>

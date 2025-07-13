@@ -15,6 +15,8 @@ import LoginForm, { loginAction } from "./components/forms/LoginForm.jsx";
 import RegisterForm, { registerAction } from "./components/forms/RegisterForm.jsx";
 import ForgetForm from "./components/forms/ForgetForm.jsx";
 import OTPForm from "./components/forms/OTPForm.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import PublicRoute from "./components/PublicRoute.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -22,25 +24,45 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/home-page",
-				element: <HomePage />,
+				element: (
+					<ProtectedRoute>
+						<HomePage />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/favorites",
-				element: <Favorites />,
+				element: (
+					<ProtectedRoute>
+						<Favorites />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/profile",
-				element: <Profile />,
+				element: (
+					<ProtectedRoute>
+						<Profile />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/play",
-				element: <PlayPage />,
+				element: (
+					<ProtectedRoute>
+						<PlayPage />
+					</ProtectedRoute>
+				),
 			},
 		],
 	},
 	{
 		path: "/",
-		element: <InitialPage />,
+		element: (
+			<PublicRoute>
+				<InitialPage />
+			</PublicRoute>
+		),
 		children: [
             {
                 path: "/login",

@@ -19,45 +19,48 @@ function ChangePass() {
         }
     }
 
-	return (
-		<div className="main-content" id="passwordSettings">
-			<h1>Password Settings</h1>
-			<form onSubmit={handleSubmit} className="profile-form">
-				<div className="form-group">
-					<label htmlFor="oldPassword">Old password</label>
-					<input
-						type="password"
-						id="oldPassword"
-						name="oldPassword"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="newPassword">New password</label>
-					<input
-						type="password"
-						id="newPassword"
-						name="newPassword"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="confirmPassword">Confirm new password</label>
-					<input
-						type="password"
-						id="confirmPassword"
-						name="confirmPassword"
-					/>
-				</div>
-				<div className="form-group">
-					<button type="submit" id="updatePasswordButton">
-						Update
-					</button>
-					<button type="button" id="cancelPasswordButton">
-						Cancel
-					</button>
-				</div>
-			</form>
-		</div>
-	);
+    return (
+        <div className="profile-container">
+            <h1 className="text-2xl font-bold text-white mb-6">Password Settings</h1>
+            <form onSubmit={handleSubmit} className="form-container">
+                <div className="form-group">
+                    <label htmlFor="oldPassword" className="form-label">Old Password</label>
+                    <input
+                        type="password"
+                        id="oldPassword"
+                        name="oldPassword"
+                        className="input-netflix"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="newPassword" className="form-label">New Password</label>
+                    <input
+                        type="password"
+                        id="newPassword"
+                        name="newPassword"
+                        className="input-netflix"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        className="input-netflix"
+                    />
+                </div>
+                <div className="flex gap-4 mt-6">
+                    <button type="submit" className="btn-primary flex-1">
+                        Update Password
+                    </button>
+                    <button type="button" className="btn-outline flex-1">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
 }
 
 export default ChangePass;

@@ -50,16 +50,17 @@ function ForgetForm() {
 	}
 
 	return (
-		<div className="form-box forgot-password">
-			<h2>Forgot Password</h2>
+		<div className="w-full">
+			<h2 className="text-responsive-2xl text-white text-center mb-6">Forgot Password</h2>
 			<Form
 				onSubmit={handleSubmit}
 				id="forgotPasswordForm"
 				method="POST"
 				encType="multipart/form-data"
+				className="space-y-4"
 			>
-				<div className="input-box">
-					<span className="icon">
+				<div className="relative">
+					<span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 z-10">
 						<IonIcon icon={mail} />
 					</span>
 					<input
@@ -67,22 +68,25 @@ function ForgetForm() {
 						name="email"
 						type="email"
 						required
+						className="input-netflix pl-10"
+						placeholder="Enter your email"
 					/>
-					<label htmlFor="forgotEmail">Email</label>
 				</div>
-				<button type="submit" className="boto">
-					Submit
+				
+				<button type="submit" className="btn-primary w-full">
+					Send OTP
 				</button>
-				<div className="login-register">
+				
+				<div className="text-center text-gray-300 space-y-2">
 					<p>
 						Remembered?{" "}
-						<Link to="/login" className="link">
+						<Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
 							Login
 						</Link>
 					</p>
 					<p>
 						Received OTP?{" "}
-						<Link to="/otp" className="link">
+						<Link to="/otp" className="text-purple-400 hover:text-purple-300 transition-colors duration-300">
 							Continue
 						</Link>
 					</p>

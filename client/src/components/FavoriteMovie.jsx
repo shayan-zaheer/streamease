@@ -29,21 +29,41 @@ function FavoriteMovie({ movie }){
     }
 
     return (
-        <div className="movie-box">
-            <img src={movie.v_poster} alt={movie.title} className="movie-box-img" />
-            <div className="box-text">
-                <h2 className="movie-title">{movie.title}</h2>
-                <span className="movie-type">{movie.genre}</span>
-                <Link   
-                    to={`/play?id=${movie.id}`}
-                    className="watch-btn play-btn"
-                    data-id={movie.id}
-                >   
-                    <FontAwesomeIcon icon={faPlay} />
-                </Link>
-                <a onClick={() => showToastMessage(movie.id, `${movie.title} has been added to favorites!`)} className="watch-btn heart-btn" data-id={movie.id}>
-                    <FontAwesomeIcon icon={faClose} style={{cursor: "pointer"}} />
-                </a>
+        <div className="card-movie group">
+            <div className="relative aspect-[2/3] overflow-hidden">
+                <img 
+                    src={movie.v_poster} 
+                    alt={movie.title} 
+                    className="movie-poster" 
+                />
+                
+                {/* Overlay with buttons - appears on hover */}
+                <div className="movie-overlay">
+                    <Link   
+                        to={`/play?id=${movie.id}`}
+                        className="btn-primary p-3 rounded-full text-white"
+                        data-id={movie.id}
+                    >   
+                        <FontAwesomeIcon icon={faPlay} className="text-lg" />
+                    </Link>
+                    <button 
+                        onClick={() => showToastMessage(movie.id, `${movie.title} has been removed from favorites!`)} 
+                        className="btn-secondary p-3 rounded-full text-white" 
+                        data-id={movie.id}
+                    >
+                        <FontAwesomeIcon icon={faClose} className="text-lg" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Movie Info */}
+            <div className="movie-info">
+                <h3 className="movie-title">
+                    {movie.title}
+                </h3>
+                <span className="movie-genre">
+                    {movie.genre}
+                </span>
             </div>
         </div>
     )
