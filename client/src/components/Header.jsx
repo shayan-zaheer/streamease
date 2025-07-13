@@ -3,13 +3,14 @@ import { faHome, faFire, faCompass, faTv, faHeart } from '@fortawesome/free-soli
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../store/userSlice';
 import SearchBox from './SearchBox';
 
 function Header() {
     const [image, setImage] = useState("");
     const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
 
     useEffect(() => {
         async function updateProfile() {
@@ -20,7 +21,7 @@ function Header() {
                 );
 
                 if (!response.data || !response.data.result || response.data.result.length === 0) {
-                    window.location.href = "/login";
+                    dispatch(userActions.clearUser());
                     return;
                 }
 
@@ -31,20 +32,26 @@ function Header() {
                     setImage(userData.profile_image_url);
                 }
             } catch (err) {
-                console.log(err);
+                dispatch(userActions.clearUser());
+                console.log('Failed to fetch user data:', err.response?.status);
             }
         }
 
-        updateProfile();
-    }, [dispatch]);
+        if (!user.user_id || !user.username) {
+            updateProfile();
+        } else if (user.profile_image_url) {
+            setImage(user.profile_image_url);
+        }
+    }, [dispatch, user.user_id, user.username, user.profile_image_url]);
+
+    const isAuthenticated = user && (user.username || user.user_id);
 
     return (
         <>
-            {image && (
+            {isAuthenticated && (
                 <header className="nav-netflix">
                     <div className="container mx-auto px-6 py-4">
                         <div className="flex items-center justify-between">
-                            {/* Logo */}
                             <Link to="/home-page" className="footer-title">
                                 Stream<span className="text-white">Ease</span>
                             </Link>
@@ -55,7 +62,7 @@ function Header() {
 
                             <Link to="/profile" className="flex items-center">
                                 <img 
-                                    src={image} 
+                                    src={image || user.profile_image_url} 
                                     className="user-avatar" 
                                     alt="User Profile" 
                                 />

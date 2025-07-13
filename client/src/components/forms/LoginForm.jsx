@@ -1,7 +1,6 @@
 import { IonIcon } from "@ionic/react";
 import { eye, eyeOff, mail } from "ionicons/icons";
-import { Form, Link, redirect, useOutletContext } from "react-router-dom";
-import axios from "axios";
+import { Form, Link, useOutletContext } from "react-router-dom";
 
 function LoginForm() {
     const [showPass, setShowPass] = useOutletContext();
@@ -80,29 +79,5 @@ function LoginForm() {
 		</div>
 	);
 }
-
-export const loginAction = async (res) => {
-	const formData = await res.request.formData();
-	const { email, password } = Object.fromEntries(formData);
-
-	try {
-		const result = await axios.post(
-			`${import.meta.env.VITE_BACKEND_URL}auth/login`,
-			{ email, password },
-			{ withCredentials: true }
-		);
-		console.log(result);
-		const data = result.data;
-		if (data.status === "success") {
-			return redirect("/home-page");
-		} else {
-			console.error("Login failed:", data);
-			return null;
-		}
-	} catch (err) {
-		console.error("Login error:", err);
-		return null;
-	}
-};
 
 export default LoginForm;

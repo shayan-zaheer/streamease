@@ -1,15 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { userActions } from "../store/userSlice";
+import { persistor } from "../store/index";
 
 async function logout(navigate, dispatch) {
     try {
         dispatch(userActions.clearUser());
+        await persistor.purge();
+        
         await axios.post(`${import.meta.env.VITE_BACKEND_URL}auth/logout`, {}, { withCredentials: true });
+        
         navigate("/login");
     } catch (error) {
         console.error("Logout failed", error);
+        navigate("/login");
     }
 }
 
@@ -67,5 +73,10 @@ function ProfileSidebar({ page, setPage }) {
         </div>
     );
 }
+
+ProfileSidebar.propTypes = {
+    page: PropTypes.string.isRequired,
+    setPage: PropTypes.func.isRequired,
+};
 
 export default ProfileSidebar;
