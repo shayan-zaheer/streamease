@@ -91,7 +91,7 @@ exports.getMovieByID = async (request, response) => {
         const movie = results[0];
 
         const fileTitle = movie.title.replace(/\s+/g, "").toLowerCase();
-        movie.url = `https://${accountId}.r2.cloudflarestorage.com/movies/${fileTitle}/master.m3u8`;
+        movie.url = `${process.env.S3_PUBLIC_DEVELOPMENT_URL}/${fileTitle}/master.m3u8`;
 
         return response.status(200).json({
             status: "success",

@@ -3,19 +3,45 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 
+
 function MoviePlay({ movie }) {
-	const [isOpen, setIsOpen] = useState(false);
-	const videoRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const videoRef = useRef(null);
+  const hlsRef = useRef(null);
+  const [levels, setLevels] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState(-1);
 
-	useEffect(() => {
-		if (isOpen && Hls.isSupported() && movie.url) {
-			const hls = new Hls();
-			hls.loadSource(movie.url);
-			hls.attachMedia(videoRef.current);
+  useEffect(() => {
+	if (isOpen && Hls.isSupported() && movie.url) {
+	  const hls = new Hls();
+	  hlsRef.current = hls;
+	  hls.loadSource(movie.url);
+	  hls.attachMedia(videoRef.current);
 
-			return () => hls.destroy();
-		}
-	}, [isOpen, movie.url]);
+	  const onLevelsUpdated = () => {
+		setLevels(hls.levels);
+	  };
+	  hls.on(Hls.Events.MANIFEST_PARSED, onLevelsUpdated);
+
+	  // Set initial level to auto
+	  setSelectedLevel(-1);
+
+	  return () => {
+		hls.destroy();
+		hlsRef.current = null;
+		setLevels([]);
+	  };
+	}
+  }, [isOpen, movie.url]);
+
+  // Handle manual quality change
+  const handleQualityChange = (e) => {
+	const level = parseInt(e.target.value, 10);
+	setSelectedLevel(level);
+	if (hlsRef.current) {
+	  hlsRef.current.currentLevel = level;
+	}
+  };
 
 	return (
 		<div className="relative rounded-xl overflow-hidden">
@@ -25,7 +51,6 @@ function MoviePlay({ movie }) {
 				className="w-full h-64 md:h-96 object-cover" 
 			/>
 			
-			{/* Overlay with movie info */}
 			<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 			
 			<div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -52,28 +77,47 @@ function MoviePlay({ movie }) {
 				</button>
 			</div>
 
-			{isOpen && (
-				<div className="modal-overlay">
-					<div className="relative bg-black rounded-xl p-4 w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden">
-						<video
-							ref={videoRef}
-							controls
-							preload="auto"
-							controlsList="nodownload"
-							className="w-full h-auto rounded-lg"
-						>
-							<source src={movie.url} type="application/x-mpegURL" />
-							Your browser does not support HLS streaming.
-						</video>
-						<button 
-							onClick={() => setIsOpen(false)} 
-							className="modal-close"
-						>
-							<FontAwesomeIcon icon={faClose} />
-						</button>
-					</div>
-				</div>
-			)}
+ {isOpen && (
+   <div className="modal-overlay">
+	 <div className="relative bg-black rounded-xl p-4 w-full max-w-6xl mx-4 max-h-[90vh] overflow-hidden">
+	   <video
+		 ref={videoRef}
+		 controls
+		 preload="auto"
+		 controlsList="nodownload"
+		 className="w-full h-auto rounded-lg"
+	   >
+		 <source src={movie.url} type="application/x-mpegURL" />
+		 Your browser does not support HLS streaming.
+	   </video>
+
+	   {levels.length > 1 && (
+		 <div className="absolute top-4 right-4 z-20 bg-black/80 rounded px-3 py-1 text-white flex items-center gap-2">
+		   <label htmlFor="quality-select" className="text-sm">Quality:</label>
+		   <select
+			 id="quality-select"
+			 value={selectedLevel}
+			 onChange={handleQualityChange}
+			 className="bg-gray-800 text-white rounded px-2 py-1 text-sm"
+		   >
+			 <option value={-1}>Auto</option>
+			 {levels.map((level, idx) => (
+			   <option key={idx} value={idx}>
+				 {level.height ? `${level.height}p` : `${level.bitrate/1000}kbps`}
+			   </option>
+			 ))}
+		   </select>
+		 </div>
+	   )}
+	   <button 
+		 onClick={() => setIsOpen(false)} 
+		 className="modal-close"
+	   >
+		 <FontAwesomeIcon icon={faClose} />
+	   </button>
+	 </div>
+   </div>
+ )}
 		</div>
 	);
 }
