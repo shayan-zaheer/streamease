@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faFire, faCompass, faTv, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../store/userSlice';
 import SearchBox from './SearchBox';
+import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
 
 function Header() {
     const [image, setImage] = useState("");
@@ -33,7 +35,7 @@ function Header() {
                 }
             } catch (err) {
                 dispatch(userActions.clearUser());
-                console.log('Failed to fetch user data:', err.response?.status);
+                toast.error('Failed to fetch user data.');
             }
         }
 
@@ -49,8 +51,18 @@ function Header() {
     return (
         <>
             {isAuthenticated && (
-                <header className="nav-netflix">
-                    <div className="container mx-auto px-6 py-4">
+                <motion.header 
+                    className="nav-netflix bg-[#18182f] bg-opacity-95 mb-8"
+                    initial={{ opacity: 0, y: -30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                >
+                    <motion.div 
+                        className="container mx-auto px-6 py-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.7 }}
+                    >
                         <div className="flex items-center justify-between">
                             <Link to="/home-page" className="footer-title">
                                 Stream<span className="text-white">Ease</span>
@@ -75,21 +87,13 @@ function Header() {
                                     <FontAwesomeIcon icon={faHome} className="nav-icon" />
                                     <span className="text-xs font-medium">Home</span>
                                 </Link>
-                                <Link to="#popular" className="nav-link">
-                                    <FontAwesomeIcon icon={faFire} className="nav-icon" />
-                                    <span className="text-xs font-medium">Trending</span>
-                                </Link>
-                                <Link to="#movies" className="nav-link">
-                                    <FontAwesomeIcon icon={faCompass} className="nav-icon" />
-                                    <span className="text-xs font-medium">Explore</span>
-                                </Link>
-                                <Link to="/" className="nav-link">
-                                    <FontAwesomeIcon icon={faTv} className="nav-icon" />
-                                    <span className="text-xs font-medium">Movies</span>
-                                </Link>
                                 <Link to="/favorites" className="nav-link">
                                     <FontAwesomeIcon icon={faHeart} className="nav-icon" />
                                     <span className="text-xs font-medium">Favorite</span>
+                                </Link>
+                                <Link to="/profile" className="nav-link">
+                                    <FontAwesomeIcon icon={faUser} className="nav-icon" />
+                                    <span className="text-xs font-medium">Profile</span>
                                 </Link>
                             </div>
                         </nav>
@@ -97,8 +101,8 @@ function Header() {
                         <div className="md:hidden mt-4">
                             <SearchBox />
                         </div>
-                    </div>
-                </header>
+                    </motion.div>
+                </motion.header>
             )}
         </>
     );

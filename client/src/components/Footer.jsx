@@ -1,8 +1,20 @@
+import { motion } from "framer-motion";
+
 function Footer(){
     return (
-        <footer className="footer-netflix">
+        <motion.footer 
+            className="footer-netflix"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+        >
             {/* Main Footer Content */}
-            <div className="footer-content">
+            <motion.div 
+                className="footer-content"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.7 }}
+            >
                 <div className="footer-grid">
                     {/* Brand Section */}
                     <div className="footer-brand">
@@ -58,7 +70,7 @@ function Footer(){
                         </ul>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Footer Bottom */}
             <div className="footer-bottom">
@@ -66,7 +78,7 @@ function Footer(){
                     <p>&copy; 2024 StreamEase. All rights reserved.</p>
                 </div>
             </div>
-        </footer>
+        </motion.footer>
     )
 };
 

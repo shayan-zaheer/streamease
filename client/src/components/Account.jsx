@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 function Account(){
 	const { first_name, last_name, username, email } = useSelector((store) => store.user);
@@ -32,9 +32,9 @@ function Account(){
             const result = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}users/update-profile`, formObject, {
                 withCredentials: true
             });
-			toast.success("Profile updated successfully!");
-		}
-        catch(err){
+            toast.success("Profile updated successfully!");
+        } catch(err){
+            toast.error("Failed to update profile.");
             console.error(err);
         }
     }

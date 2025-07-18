@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function SearchBox() {
     const [movies, setMovies] = useState([]);
@@ -32,6 +33,7 @@ function SearchBox() {
                 console.error("Error fetching movies:", error);
                 setMovies([]);
                 setDropdownVisible(false);
+                toast.error('Failed to fetch search results.');
             }
         };
 

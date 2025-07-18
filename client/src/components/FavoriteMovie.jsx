@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { favoritesActions } from "../store/favoritesSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -3,6 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { closeOutline, playOutline } from "ionicons/icons";
 import { Link, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
+import { motion } from "framer-motion";
 
 function InitialPage() {
     const [active, setActive] = useState(false);
@@ -10,7 +11,12 @@ function InitialPage() {
     const [email, setEmail] = useState("");
 
     return (
-        <>
+        <motion.div 
+            className="initial-page-container px-4 sm:px-6 md:px-8 lg:px-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+        >
             <div className="hero-section">
                 <div
                     className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -39,7 +45,7 @@ function InitialPage() {
                     </div>
                 </header>
 
-                <div className="hero-content">
+                <div className="hero-content flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
                     <div className="text-center max-w-4xl mx-auto">
                         <h1 className="hero-title">
                             Unlimited movies, TV shows, and more
@@ -51,11 +57,11 @@ function InitialPage() {
                             Ready to watch? Enter your email to create or
                             restart your membership.
                         </p>
-                        <div className="hero-cta">
+                        <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <Link
                                 to="/login"
                                 onClick={() => setActive(true)}
-                                className="btn-primary"
+                                className="btn-primary w-full sm:w-auto"
                             >
                                 <IonIcon
                                     icon={playOutline}
@@ -216,7 +222,7 @@ function InitialPage() {
                 </div>
             </section>
             <Footer />
-        </>
+        </motion.div>
     );
 }
 

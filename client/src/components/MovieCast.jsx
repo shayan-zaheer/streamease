@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 function MovieCast({ movie }) {
 	const [castList, setCastList] = useState([]);
@@ -8,20 +9,32 @@ function MovieCast({ movie }) {
 			const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
 				movieName
 			)}`;
-			const response = await fetch(searchUrl);
-			const searchResults = await response.json();
-			if (searchResults.results && searchResults.results.length > 0) {
-				return searchResults.results[0].id;
-			} else {
-				throw new Error("Movie not found");
+			try {
+				const response = await fetch(searchUrl);
+				if (!response.ok) throw new Error('Failed to fetch movie cast');
+				const data = await response.json();
+				if (data.results && data.results.length > 0) {
+					return data.results[0].id;
+				} else {
+					throw new Error("Movie not found");
+				}
+			} catch (err) {
+				console.error(err);
+				setCastList([]);
 			}
 		};
 
 		const getMovieCredits = async (movieId) => {
 			const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
-			const response = await fetch(creditsUrl);
-			const credits = await response.json();
-			return credits.cast;
+			try {
+				const response = await fetch(creditsUrl);
+				if (!response.ok) throw new Error('Failed to fetch movie cast');
+				const data = await response.json();
+				return data.cast;
+			} catch (err) {
+				console.error(err);
+				setCastList([]);
+			}
 		};
 
 		const fetchMovieCast = async (movieName) => {

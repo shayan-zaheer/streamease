@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function Hero() {
     const {generalMovies} = useSelector(store => store.movies);
@@ -14,7 +15,7 @@ function Hero() {
     const randomIndex = Math.floor(Math.random() * generalMovies.length);
 
     return (
-        <section className="hero-section mt-4 mx-6 rounded-lg" id="home">
+        <section className="hero-section mx-6 rounded-lg min-h-[calc(100vh-120px)] flex items-center justify-center" id="home">
             {/* Background Image */}
             <img 
                 src={generalMovies[randomIndex].h_poster} 
@@ -26,19 +27,37 @@ function Hero() {
             <div className="hero-overlay rounded-lg"></div>
             
             {/* Content */}
-            <div className="hero-content p-8 md:p-16 max-w-2xl">
+            <motion.div 
+                className="hero-content p-8 md:p-16 max-w-2xl flex flex-col items-center justify-center"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+            >
                 <h1 className="hero-title">
                     {generalMovies[randomIndex].title}
                 </h1>
-                <div className="flex items-center gap-4 mt-8">
-                    <button className="btn-primary">
+                <motion.div 
+                    className="flex flex-row items-center gap-4 mt-8 justify-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.7, ease: "easeOut" }}
+                >
+                    <motion.button 
+                        className="btn-primary"
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.97 }}
+                    >
                         ▶ Play Now
-                    </button>
-                    <button className="btn-secondary">
+                    </motion.button>
+                    <motion.button 
+                        className="btn-secondary"
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.97 }}
+                    >
                         More Info
-                    </button>
-                </div>
-            </div>
+                    </motion.button>
+                </motion.div>
+            </motion.div>
         </section>
     );
 }

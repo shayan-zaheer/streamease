@@ -3,6 +3,7 @@ import { statusActions } from "../store/statusSlice";
 import { moviesActions } from "../store/moviesSlice";
 import { useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 function FetchMovies() {
     const status = useSelector(store => store.status);

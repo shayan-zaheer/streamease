@@ -4,13 +4,25 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
 import MovieBox from "./MovieBox";
+import { motion } from "framer-motion";
 
 function PopularMovies(){
     const {popularMovies} = useSelector(store => store.movies);
 
 	return (
-		<section className="py-8" id="popular">
-			<div className="container mx-auto px-6">
+		<motion.section 
+			className="py-8" 
+			id="popular"
+			initial={{ opacity: 0, y: 30 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.7, ease: "easeOut" }}
+		>
+			<motion.div 
+				className="container mx-auto px-6"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ delay: 0.2, duration: 0.7 }}
+			>
 				<div className="flex items-center justify-between mb-8">
 					<h2 className="text-responsive-2xl font-bold text-white">
 						Popular Movies
@@ -55,8 +67,8 @@ function PopularMovies(){
 						</SwiperSlide>
 					))}
 				</Swiper>
-			</div>
-		</section>
+			</motion.div>
+		</motion.section>
 	);
 };
 

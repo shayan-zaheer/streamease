@@ -2,7 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { image, mail, person, eye, eyeOff } from 'ionicons/icons';
 import { Form, Link, redirect, useOutletContext } from 'react-router-dom';
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 function RegisterForm() {
     const [showPass, setShowPass] = useOutletContext();
@@ -159,6 +159,7 @@ export const registerAction = async (res) => {
         return redirect("/login");
     }
     catch(err){
+        toast.error('Registration failed.');
         return console.error(err);
     }
     

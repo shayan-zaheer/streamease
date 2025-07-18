@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { favoritesActions } from "../store/favoritesSlice";
+import { toast } from "react-hot-toast";
 
 function FetchFavorites(){
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function FetchFavorites(){
 
             } catch (err) {
                 console.error("Error fetching favorites:", err);
+                toast.error('Failed to fetch favorites.');
             }
         }
 

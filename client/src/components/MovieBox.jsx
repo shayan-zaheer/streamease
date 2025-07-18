@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { favoritesActions } from "../store/favoritesSlice";
 

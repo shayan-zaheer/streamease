@@ -2,20 +2,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import { userActions } from "../store/userSlice";
 import { persistor } from "../store/index";
 
 async function logout(navigate, dispatch) {
     try {
         dispatch(userActions.clearUser());
+        navigate("/");
         await persistor.purge();
-        
-        await axios.post(`${import.meta.env.VITE_BACKEND_URL}auth/logout`, {}, { withCredentials: true });
-        
-        navigate("/login");
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}auth/logout`, {}, { withCredentials: true })
+            .then(() => toast.success('Logged out successfully!'))
+            .catch(() => toast.error('Logout failed.'));
     } catch (error) {
         console.error("Logout failed", error);
-        navigate("/login");
+        toast.error('Logout failed.');
+        navigate("/");
     }
 }
 
